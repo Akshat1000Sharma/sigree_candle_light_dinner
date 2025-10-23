@@ -798,7 +798,7 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  height: 28rem;          /* fixed visual box height - adjust as needed (e.g., 24rem, 28rem) */
+  /* height: 30rem;          fixed visual box height - adjust as needed (e.g., 24rem, 28rem) */
   border-radius: 0.5rem;
   overflow: hidden;
   position: relative;
@@ -807,7 +807,7 @@ header {
 /* image wrapper so the image height is fixed and doesn't stretch card footer */
 .menu-image-wrapper {
   width: 100%;
-  height: 11rem;          /* fixed image height - adjust as needed */
+  height: 15rem;          /* fixed image height - adjust as needed */
   overflow: hidden;
   position: relative;
   flex: 0 0 auto;

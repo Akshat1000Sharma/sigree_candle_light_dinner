@@ -24,7 +24,7 @@ const menu_items = [
     name: "Vietnamese Spring Roll",
     category: "Starter",
     price: 129,
-    description: "Fresh, crunchy rolls packed with vegetables and authentic Vietnamese flavors.",
+    description: "Crunchy rolls packed with vegetables and authentic Vietnamese flavors.",
     image: "https://images.unsplash.com/photo-1693494869603-09f1981f28e0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
   {
@@ -67,7 +67,7 @@ const menu_items = [
     category: "Main Course",
     price: 249,
     description: "Rich pasta tossed in a bold mix of caramelized onions, garlic, and spicy chilli oil.",
-    image: "https://images.unsplash.com/photo-1613145993483-1a1f0e0b3d5c?w=500"
+    image: "https://images.unsplash.com/photo-1574636573716-062c8c8c6179?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
   {
     id: "9",
@@ -75,7 +75,7 @@ const menu_items = [
     category: "Main Course",
     price: 239,
     description: "A creamy, fragrant green curry with vegetables, paired perfectly with jasmine rice.",
-    image: "https://images.unsplash.com/photo-1579880645070-282f4bacc30b?w=500"
+    image: "https://plus.unsplash.com/premium_photo-1699293238732-c2fde08b4923?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
   {
     id: "10",
@@ -83,7 +83,7 @@ const menu_items = [
     category: "Main Course",
     price: 279,
     description: "Tender chicken simmered in rich green Thai curry, served with jasmine rice.",
-    image: "https://images.unsplash.com/photo-1604908554169-937f3b91a940?w=500"
+    image: "https://images.unsplash.com/photo-1719670712556-638018bd8238?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
   {
     id: "11",
@@ -91,7 +91,7 @@ const menu_items = [
     category: "Main Course",
     price: 279,
     description: "Fiery peri peri chicken served with fragrant yellow rice — spicy and satisfying.",
-    image: "https://images.unsplash.com/photo-1625944277540-3ed8a6eac42e?w=500"
+    image: "https://images.unsplash.com/photo-1679735386220-e8888925676e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
 
   // Drinks
@@ -101,7 +101,7 @@ const menu_items = [
     category: "Drink",
     price: 89,
     description: "A refreshing blend of mint, lime, and soda — the perfect thirst quencher.",
-    image: "https://images.unsplash.com/photo-1562059390-a761a084768e?w=500"
+    image: "https://images.unsplash.com/photo-1634496064950-02f043806b09?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
   {
     id: "13",
@@ -117,7 +117,7 @@ const menu_items = [
     category: "Drink",
     price: 129,
     description: "Thick, indulgent chocolate shake topped with brownie bits.",
-    image: "https://images.unsplash.com/photo-1601924582971-df6b86a20f9b?w=500"
+    image: "https://plus.unsplash.com/premium_photo-1695750678153-e7148811673e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
 
   // Desserts
