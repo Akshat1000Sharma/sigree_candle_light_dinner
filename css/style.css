@@ -565,6 +565,13 @@ header {
   animation: fadeIn 0.5s ease;
 }
 
+@media (max-width: 768px) {
+  .tab-btn {
+    font-size: 0.8rem; /* Smaller font size for phones */
+    /* padding: 0.4rem 0.8rem; Optional: adjust padding for better fit */
+  }
+}
+
 /* Quantity Modal */
 .quantity-modal {
   position: fixed;
