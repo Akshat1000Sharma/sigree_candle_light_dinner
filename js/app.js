@@ -75,7 +75,7 @@ const menu_items = [
     category: "Main Course",
     price: 239,
     description: "A creamy, fragrant green curry with vegetables, paired perfectly with jasmine rice.",
-    image: "https://plus.unsplash.com/premium_photo-1699293238732-c2fde08b4923?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
+    image: "https://sigree-candle-light-dinner.vercel.app/static/thai_curry(veg).jpg"
   },
   {
     id: "10",
@@ -83,7 +83,7 @@ const menu_items = [
     category: "Main Course",
     price: 279,
     description: "Tender chicken simmered in rich green Thai curry, served with jasmine rice.",
-    image: "https://images.unsplash.com/photo-1719670712556-638018bd8238?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
+    image: "https://sigree-candle-light-dinner.vercel.app/static/thai_curry(non-veg).jpg"
   },
   {
     id: "11",
