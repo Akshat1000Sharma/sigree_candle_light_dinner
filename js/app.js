@@ -7,7 +7,7 @@ const menu_items = [
     category: "Soup",
     price: 129,
     description: "A creamy, velvety soup made with fresh mushrooms and herbs — comforting and delicious.",
-    image: "https://plus.unsplash.com/premium_photo-1671377377502-37bf7369f92d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
+    image: "https://plus.unsplash.com/premium_photo-1671377665515-38e39a4de0b7?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
   {
     id: "2",
@@ -127,7 +127,7 @@ const menu_items = [
     category: "Dessert",
     price: 79,
     description: "Soft, moist red velvet cake layered with smooth cream cheese frosting.",
-    image: "https://images.unsplash.com/photo-1599785209798-9b0b91a1c03d?w=500"
+    image: "https://images.unsplash.com/photo-1714386148315-2f0e3eebcd5a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
   {
     id: "16",
@@ -135,7 +135,7 @@ const menu_items = [
     category: "Dessert",
     price: 99,
     description: "Creamy cheesecake topped with luscious blueberry compote.",
-    image: "https://images.unsplash.com/photo-1601972599720-b1e4e1a9f5c4?w=500"
+    image: "https://images.unsplash.com/photo-1642423974120-32a7a2cc393f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
   {
     id: "17",
@@ -143,7 +143,7 @@ const menu_items = [
     category: "Dessert",
     price: 59,
     description: "Decadent chocolate truffle cake with rich, fudgy layers.",
-    image: "https://images.unsplash.com/photo-1606312616070-9afc7a1a1b5c?w=500"
+    image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
   {
     id: "18",
@@ -151,7 +151,7 @@ const menu_items = [
     category: "Dessert",
     price: 149,
     description: "Warm, gooey brownie served with a scoop of vanilla ice cream.",
-    image: "https://images.unsplash.com/photo-1621259182978-40f2e3c4c43e?w=500"
+    image: "https://images.unsplash.com/photo-1624353365286-3f8d62daad51?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   }
 ];
 
