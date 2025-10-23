@@ -693,7 +693,7 @@ header {
 
 .menu-title {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(2.5rem, 6vw, 1.5rem);
+  font-size: clamp(1.8rem, 6vw, 1.2rem);
   font-weight: 700;
   color: #D4AF37;
   margin-bottom: 0.5rem;
@@ -711,6 +711,100 @@ header {
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
+}
+/* Fixed-size menu card: image top, content column, footer pinned to bottom */
+.menu-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 28rem;          /* fixed visual box height - adjust as needed (e.g., 24rem, 28rem) */
+  border-radius: 0.5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+/* image wrapper so the image height is fixed and doesn't stretch card footer */
+.menu-image-wrapper {
+  width: 100%;
+  height: 11rem;          /* fixed image height - adjust as needed */
+  overflow: hidden;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.menu-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+/* keep overlay same behavior */
+.menu-image-wrapper .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+}
+
+/* menu-info fills remaining vertical space; footer pinned at bottom */
+.menu-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  flex: 1 1 auto;
+}
+
+/* description area can grow; footer pushed to bottom */
+.menu-desc {
+  margin-bottom: 0.5rem;
+  color: rgba(245, 245, 220, 0.8);
+  font-size: 0.9rem;
+  line-height: 1.3;
+  max-height: 6rem;      /* optional: clamp long descriptions */
+  overflow: hidden;
+}
+
+/* Footer: price left, add button right, always at bottom */
+.menu-footer {
+  margin-top: auto;      /* important: pushes footer to bottom of menu-info */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Slightly reduce price size so it sits well */
+.menu-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #D4AF37;
+}
+
+/* ensure add-btn is visually consistent */
+.menu-footer .add-btn {
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.5rem;
+  min-width: 78px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Hover transforms (optional) */
+.menu-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Responsive: smaller cards on narrow screens */
+@media (max-width: 480px) {
+  .menu-card {
+    height: 26rem;
+  }
+  .menu-image-wrapper {
+    height: 10rem;
+  }
 }
 
 /* Checkout Page */
