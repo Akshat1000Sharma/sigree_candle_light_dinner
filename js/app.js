@@ -51,14 +51,6 @@ const menu_items = [
     description: "Crunchy on the outside, tender inside — perfect for spicy snack lovers.",
     image: "https://images.unsplash.com/photo-1690519315565-c31ce99f8d58?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
-  // {
-  //   id: "7",
-  //   name: "Greekish Chicken",
-  //   category: "Starter",
-  //   price: 249,
-  //   description: "Juicy grilled chicken marinated in Mediterranean herbs and spices.",
-  //   image: "https://images.unsplash.com/photo-1562967916-eb82221dfb92?w=500"
-  // },
 
   // Main Course
   {
@@ -129,14 +121,6 @@ const menu_items = [
     description: "Soft, moist red velvet cake layered with smooth cream cheese frosting.",
     image: "https://images.unsplash.com/photo-1714386148315-2f0e3eebcd5a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
-  // {
-  //   id: "16",
-  //   name: "Blueberry Cheesecake",
-  //   category: "Dessert",
-  //   price: 99,
-  //   description: "Creamy cheesecake topped with luscious blueberry compote.",
-  //   image: "https://images.unsplash.com/photo-1642423974120-32a7a2cc393f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
-  // },
   {
     id: "17",
     name: "Truffle Cake",
@@ -159,68 +143,27 @@ const menu_items = [
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // --------- Slot management ----------
-// Four slots, each max 20 tables. Persisted in localStorage under 'slotAvailability'.
-// Slot keys: slot1, slot2, slot3, slot4
 const SLOTS = [
-  { id: 'slot1', label: '8:00 PM - 8:45 PM' },
-  { id: 'slot2', label: '8:45 PM - 9:30 PM' },
-  { id: 'slot3', label: '9:30 PM - 10:15 PM' },
-  { id: 'slot4', label: '10:15 PM - 11:00 PM' }
+  { id: 'slot1', label: '8:00 PM - 8:45 PM', number: 20 },
+  { id: 'slot2', label: '8:45 PM - 9:30 PM', number: 20 },
+  { id: 'slot3', label: '9:30 PM - 10:15 PM', number: 20 },
+  { id: 'slot4', label: '10:15 PM - 11:00 PM', number: 20 }
 ];
-const MAX_TABLES_PER_SLOT = 20;
 
-const getSlotAvailability = () => {
-  const raw = localStorage.getItem('slotAvailability');
-  if (raw) {
-    try {
-      return JSON.parse(raw);
-    } catch (e) { /* fallback */ }
-  }
-  // initialize
-  const initial = {};
-  SLOTS.forEach(s => initial[s.id] = MAX_TABLES_PER_SLOT);
-  localStorage.setItem('slotAvailability', JSON.stringify(initial));
-  return initial;
-};
-
-const setSlotAvailability = (obj) => {
-  localStorage.setItem('slotAvailability', JSON.stringify(obj));
-};
-
-const decrementSlot = (slotId, tables) => {
-  const av = getSlotAvailability();
-  av[slotId] = Math.max(0, (av[slotId] || 0) - tables);
-  setSlotAvailability(av);
-};
-
-// Render slot options with remaining counts
+// Render slot options with available counts
 const refreshSlotOptions = () => {
   const select = document.getElementById('slot_select');
   if (!select) return;
-  const av = getSlotAvailability();
-  // compute tables needed for this checkout (1 table per 2 individuals)
-  const people = getCartCount();
-  const tablesNeeded = Math.max(1, Math.ceil(people / 2)); // at least 1
   select.innerHTML = ''; // clear
   SLOTS.forEach(slot => {
-    const left = av[slot.id] != null ? av[slot.id] : MAX_TABLES_PER_SLOT;
     const option = document.createElement('option');
     option.value = slot.id;
-    option.textContent = `${slot.label} — ${left} tables left`;
-    if (left < tablesNeeded) {
-      option.disabled = true;
-      option.textContent += ' (not enough tables)';
-    }
+    option.textContent = `${slot.label} — ${slot.number} tables available`;
     select.appendChild(option);
   });
-  // If the current selected option is disabled/empty, try to select first valid
-  if (!select.value || select.selectedOptions[0].disabled) {
-    const firstValid = Array.from(select.options).find(o => !o.disabled);
-    if (firstValid) select.value = firstValid.value;
-  }
 };
 
-// Functions (cart operations) — unchanged except we call refreshSlotOptions
+// Functions (cart operations)
 const addToCart = (item, quantity = 1) => {
   const existingItem = cart.find((i) => i.id === item.id);
   if (existingItem) {
@@ -265,7 +208,7 @@ const getCartCount = () => {
   return cart.reduce((sum, item) => sum + item.quantity, 0);
 };
 
-// Update cart UI (common function)
+// Update cart UI
 const updateCartUI = () => {
   const cartCountEl = document.querySelector('.cart-count');
   const cartItemsEl = document.querySelector('.cart-items');
@@ -311,7 +254,7 @@ const updateCartUI = () => {
   refreshSlotOptions();
 };
 
-// Cart sidebar toggle (unchanged)
+// Cart sidebar toggle
 const toggleCart = () => {
   const sidebar = document.querySelector('.cart-sidebar');
   const overlay = document.querySelector('.overlay');
@@ -329,7 +272,7 @@ const closeCart = () => {
   if (overlay) overlay.classList.remove('active');
 };
 
-// Quantity modal (unchanged)
+// Quantity modal
 let selectedItem = null;
 let selectedQuantity = 1;
 
@@ -375,7 +318,7 @@ const confirmAddToCart = () => {
   }
 };
 
-// Render menu into the active tab's grid (unchanged)
+// Render menu into the active tab's grid
 const renderMenu = () => {
   const activeTabContent = document.querySelector('.tab-content.active');
   if (!activeTabContent) return;
@@ -416,7 +359,7 @@ const renderMenu = () => {
   `).join('');
 };
 
-// Switch tab (unchanged)
+// Switch tab
 const switchTab = (tab) => {
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
   const btn = document.querySelector(`.tab-btn[data-tab="${tab}"]`);
@@ -427,7 +370,7 @@ const switchTab = (tab) => {
   renderMenu();
 };
 
-// --------- File upload preview and controls (improved) ----------
+// File upload preview and controls
 const handleFileUpload = (e) => {
   const file = e.target.files[0];
   const previewDiv = document.getElementById('upload-preview');
@@ -470,19 +413,15 @@ const resetUpload = () => {
   if (uploadText) uploadText.textContent = 'Click to upload payment screenshot';
 };
 
-// Checkout form handling (updated to check slot availability)
-// Replace this with the web app URL you copied from Apps Script deployment:
-const APPS_SCRIPT_WEBAPP_URL = 'https://script.google.com/a/macros/snu.edu.in/s/AKfycbxIPBYTuGu37V3HTHft3_WFJpmKM9M1izEh1-czJCZUUKMdxziR_PmsG0ykk-LzmmWc/exec'; // <-- REPLACE
+// Checkout form handling
+const APPS_SCRIPT_WEBAPP_URL = 'https://script.google.com/a/macros/snu.edu.in/s/AKfycbxIPBYTuGu37V3HTHft3_WFJpmKM9M1izEh1-czJCZUUKMdxziR_PmsG0ykk-LzmmWc/exec';
 
-// guard to prevent multi-submit
 let isSubmitting = false;
 
 const handleCheckoutForm = () => {
-  // If already submitting, ignore further clicks
   if (isSubmitting) return;
   isSubmitting = true;
 
-  // button reference & state saver
   const btn = document.querySelector('.confirm-btn');
   const originalBtnHtml = btn ? btn.innerHTML : null;
 
@@ -491,7 +430,6 @@ const handleCheckoutForm = () => {
     btn.disabled = true;
     btn.setAttribute('aria-disabled', 'true');
     btn.classList.add('loading');
-    // inline spinner + text
     btn.innerHTML = `
       <svg class="btn-spinner" width="18" height="18" viewBox="0 0 50 50" aria-hidden="true">
         <circle cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
@@ -510,7 +448,6 @@ const handleCheckoutForm = () => {
 
   disableButtonUI();
 
-  // form fields
   const nameEl = document.getElementById('customer_name');
   const emailEl = document.getElementById('customer_email');
   const phoneEl = document.getElementById('customer_phone');
@@ -535,56 +472,38 @@ const handleCheckoutForm = () => {
     return;
   }
 
-  // compute tables required: 1 table per 2 individuals, at least 1
   const people = getCartCount();
   const tablesNeeded = Math.max(1, Math.ceil(people / 2));
-
-  const av = getSlotAvailability();
-  const left = av[slot] != null ? av[slot] : MAX_TABLES_PER_SLOT;
-  if (left < tablesNeeded) {
-    alert('Selected slot does not have enough tables available. Please choose another slot.');
-    refreshSlotOptions();
-    isSubmitting = false;
-    reenableButtonUI();
-    return;
-  }
-
-  // Build order summary
   const orderItems = cart.map(i => `${i.name} x${i.quantity}`).join('; ');
   const orderSummary = `Items: ${orderItems} | People: ${people} | Tables: ${tablesNeeded} | Total: ₹${getCartTotal()}`;
 
   const file = screenshotInput.files[0];
   const reader = new FileReader();
 
-  // fallback timeout (if iframe never loads)
   let submitTimeout = setTimeout(() => {
-    // treat as failure/time out
     if (isSubmitting) {
       isSubmitting = false;
-      // attempt cleanup (form will be removed by onIFrameLoad normally; if not, try removing any leftover)
       const leftoverForm = document.getElementById('apps-script-temp-form');
       if (leftoverForm) leftoverForm.remove();
       reenableButtonUI();
       alert('Submission is taking longer than expected. Please try again. If the problem persists, contact support.');
     }
-  }, 20000); // 20 seconds timeout
+  }, 20000);
 
   reader.onload = function(evt) {
     try {
-      const dataUrl = evt.target.result; // "data:<mimetype>;base64,XXXX..."
+      const dataUrl = evt.target.result;
       const parts = dataUrl.split(',');
       const base64 = parts[1] || '';
       const mime = (parts[0].match(/data:(.*);base64/) || [])[1] || 'image/png';
 
-      // Build a hidden form with necessary fields
       const form = document.createElement('form');
       form.method = 'POST';
       form.enctype = 'multipart/form-data';
       form.action = APPS_SCRIPT_WEBAPP_URL;
       form.style.display = 'none';
-      form.id = 'apps-script-temp-form'; // so we can cleanup if timeout
+      form.id = 'apps-script-temp-form';
 
-      // Put inputs: name, email, phone, slot, order, base64_image, filename, mimetype
       const addInput = (k, v) => {
         const i = document.createElement('input');
         i.type = 'hidden';
@@ -601,7 +520,6 @@ const handleCheckoutForm = () => {
       addInput('filename', file.name);
       addInput('mimetype', mime);
 
-      // Create (or reuse) a hidden iframe to target so current page doesn't navigate
       let iframe = document.getElementById('apps-script-iframe');
       if (!iframe) {
         iframe = document.createElement('iframe');
@@ -614,24 +532,15 @@ const handleCheckoutForm = () => {
       form.target = iframe.name;
       document.body.appendChild(form);
 
-      // Listen for iframe load -> treat as completion (note: cannot read cross-origin response body)
       const onIFrameLoad = () => {
         try {
           clearTimeout(submitTimeout);
           iframe.removeEventListener('load', onIFrameLoad);
-
-          // cleanup form (it might not exist if timeout cleaned it)
           const temp = document.getElementById('apps-script-temp-form');
           if (temp) temp.remove();
-
-          // Update local availability, clear cart, go to success page
-          decrementSlot(slot, tablesNeeded);
           clearCart();
-
-          // Navigate to success
           window.location.href = 'success.html';
         } catch (err) {
-          // in case of any unexpected error, re-enable UI so user can retry
           isSubmitting = false;
           reenableButtonUI();
           alert('An unexpected error occurred. Please try again.');
@@ -639,11 +548,7 @@ const handleCheckoutForm = () => {
       };
 
       iframe.addEventListener('load', onIFrameLoad);
-
-      // submit the form — this will POST the base64 payload to your Apps Script
       form.submit();
-
-      // Optional: show a small inline status already done via button UI
     } catch (err) {
       clearTimeout(submitTimeout);
       isSubmitting = false;
@@ -652,17 +557,13 @@ const handleCheckoutForm = () => {
     }
   };
 
-  // read file as dataURL (starts upload process)
   reader.readAsDataURL(file);
 };
-
-
 
 // DOMContentLoaded initialization
 document.addEventListener('DOMContentLoaded', () => {
   updateCartUI();
 
-  // Page-specific init
   if (document.querySelector('.menu-grid')) {
     renderMenu();
     document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -680,16 +581,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // populate slot select
   refreshSlotOptions();
 
-  // Close on overlay click
   document.querySelectorAll('.overlay').forEach(ov => {
     ov.addEventListener('click', () => {
       closeCart();
       closeQuantityModal();
     });
   });
-
-  // connect reset upload button(s) if present in checkout.html via event listeners are setup in that file
 });
