@@ -1,14 +1,14 @@
 // Menu items array
 const menu_items = [
   // Appetizers
-  {"id": "1", "name": "Vietnamese Spring Roll", "category": "Appetizer", "price": 149, "description": "(5 pieces) Fresh, crunchy, and bursting with vibrant flavors wrapped in delicate rice paper.", "image": "https://images.unsplash.com/photo-1594007728872-fde0fdb3c677?w=500"},
+  {"id": "1", "name": "Vietnamese Spring Roll", "category": "Appetizer", "price": 149, "description": "(5 pieces) Fresh, crunchy, and bursting with vibrant flavors wrapped in delicate rice paper.", "image": "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=500"},
   {"id": "2", "name": "Cream of Mushroom Soup", "category": "Appetizer", "price": 149, "description": "A silky, creamy blend of mushrooms and herbs that warms the soul.", "image": "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=500"},
   {"id": "3", "name": "Chicken Kurkure", "category": "Appetizer", "price": 199, "description": "Crispy on the outside, tender inside — a perfect fusion of spice and crunch", "image": "https://images.unsplash.com/photo-1562967916-eb82221dfb92?w=500"},
   // Main Course
   {"id": "4", "name": "Caramelized Onion and Chili Oil Pasta", "category": "Main Course", "price": 249, "description": "Sweet, spicy, and perfectly balanced — pasta with a bold twist.", "image": "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=500"},
   {"id": "5", "name": "Green Thai Curry with Jasmine Rice (Veg)", "category": "Main Course", "price": 239, "description": "A creamy, aromatic blend of vegetables simmered in rich Thai spices, served with fragrant Jasmine rice.", "image": "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=500"},
   {"id": "6", "name": "Green Thai Curry with Jasmine Rice (Non-Veg)", "category": "Main Course", "price": 279, "description": "Tender chicken simmered in a rich coconut curry, bursting with authentic Thai flavors.", "image": "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=500"},
-  {"id": "7", "name": "Peri Peri Chicken with Yellow Rice", "category": "Main Course", "price": 279, "description": "Juicy chicken tossed in fiery peri peri, paired with fragrant golden rice.", "image": "https://images.unsplash.com/photo-1633504581786-316c8002b1b2?w=500"},
+  {"id": "7", "name": "Peri Peri Chicken with Yellow Rice", "category": "Main Course", "price": 279, "description": "Juicy chicken tossed in fiery peri peri, paired with fragrant golden rice.", "image": "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=500"},
 ];
 
 // Cart management
@@ -178,7 +178,7 @@ const renderMenu = () => {
         <div class="overlay"></div>
       </div>
       <div class="menu-info">
-        <h3 class="menu-title">${item.name}</h3>
+        <p class="menu-title">${item.name}</p>
         <p class="menu-desc">${item.description}</p>
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <span class="menu-price">₹${item.price}</span>
