@@ -7,7 +7,7 @@ const menu_items = [
     category: "Soup",
     price: 129,
     description: "A creamy, velvety soup made with fresh mushrooms and herbs — comforting and delicious.",
-    image: "https://images.unsplash.com/photo-1604908177070-3bb38a1c3552?w=500"
+    image: "https://plus.unsplash.com/premium_photo-1671377377502-37bf7369f92d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
   {
     id: "2",
@@ -15,7 +15,7 @@ const menu_items = [
     category: "Soup",
     price: 109,
     description: "A hearty, flavorful soup with tender chicken chunks simmered in savory broth.",
-    image: "https://images.unsplash.com/photo-1625944277540-3ed8a6eac42e?w=500"
+    image: "https://plus.unsplash.com/premium_photo-1664472752075-d5b2b3de0a88?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
 
   // Starters
@@ -25,7 +25,7 @@ const menu_items = [
     category: "Starter",
     price: 129,
     description: "Fresh, crunchy rolls packed with vegetables and authentic Vietnamese flavors.",
-    image: "https://images.unsplash.com/photo-1617196034796-73e5bbdb8b41?w=500"
+    image: "https://images.unsplash.com/photo-1693494869603-09f1981f28e0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
   {
     id: "4",
@@ -33,7 +33,7 @@ const menu_items = [
     category: "Starter",
     price: 129,
     description: "Smoky tandoori momos stuffed with soft paneer and aromatic Indian spices.",
-    image: "https://images.unsplash.com/photo-1631515243349-90cb8a4e0b0b?w=500"
+    image: "https://images.unsplash.com/photo-1694923450868-b432a8ee52aa?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
   {
     id: "5",
@@ -49,7 +49,7 @@ const menu_items = [
     category: "Starter",
     price: 149,
     description: "Crunchy on the outside, tender inside — perfect for spicy snack lovers.",
-    image: "https://images.unsplash.com/photo-1600628422019-90a86813f54f?w=500"
+    image: "https://images.unsplash.com/photo-1690519315565-c31ce99f8d58?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
   {
     id: "7",
