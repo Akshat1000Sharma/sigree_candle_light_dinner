@@ -39,14 +39,13 @@ header {
   gap: 0.5rem;
 }
 
-.logo .candle-flame {
-  width: 2rem;
-  height: 2.5rem;
-  background: linear-gradient(180deg, #FFD700 0%, #FFA500 50%, #FF4500 100%);
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  box-shadow: 0 0 20px #FFD700, 0 0 40px #FFA500, 0 0 60px #FF4500;
-  animation: flicker 1.5s ease-in-out infinite;
+.header-logo {
+  width: 60px;       /* adjust as needed */
+  height: auto;
+  object-fit: contain;
+  display: block;
 }
+
 
 .logo h1 {
   font-family: 'Playfair Display', serif;
