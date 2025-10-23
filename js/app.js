@@ -471,26 +471,28 @@ const resetUpload = () => {
 };
 
 // Checkout form handling (updated to check slot availability)
-const handleCheckoutForm = () => {
-  const formData = {
-    name: document.getElementById('customer_name').value.trim(),
-    email: document.getElementById('customer_email').value.trim(),
-    phone: document.getElementById('customer_phone').value.trim(),
-  };
-  const screenshotInput = document.getElementById('payment_screenshot');
-  const screenshot = screenshotInput && screenshotInput.files ? screenshotInput.files[0] : null;
-  const slotSelect = document.getElementById('slot_select');
+// Replace this with the web app URL you copied from Apps Script deployment:
+const APPS_SCRIPT_WEBAPP_URL = 'https://script.google.com/a/macros/snu.edu.in/s/AKfycbxIPBYTuGu37V3HTHft3_WFJpmKM9M1izEh1-czJCZUUKMdxziR_PmsG0ykk-LzmmWc/exec'; // <-- REPLACE
 
-  if (!formData.name || !formData.email || !formData.phone) {
+// New handleCheckoutForm implementation that sends base64 image to Apps Script via hidden form+iframe
+const handleCheckoutForm = () => {
+  const nameEl = document.getElementById('customer_name');
+  const emailEl = document.getElementById('customer_email');
+  const phoneEl = document.getElementById('customer_phone');
+  const slotSelect = document.getElementById('slot_select');
+  const screenshotInput = document.getElementById('payment_screenshot');
+
+  const name = nameEl ? nameEl.value.trim() : '';
+  const email = emailEl ? emailEl.value.trim() : '';
+  const phone = phoneEl ? phoneEl.value.trim() : '';
+  const slot = slotSelect ? slotSelect.value : '';
+
+  if (!name || !email || !phone) {
     alert('Please fill all details');
     return;
   }
-  if (!screenshot) {
+  if (!screenshotInput || !screenshotInput.files || screenshotInput.files.length === 0) {
     alert('Please upload payment screenshot');
-    return;
-  }
-  if (!slotSelect || !slotSelect.value) {
-    alert('Please choose a slot');
     return;
   }
 
@@ -499,24 +501,86 @@ const handleCheckoutForm = () => {
   const tablesNeeded = Math.max(1, Math.ceil(people / 2));
 
   const av = getSlotAvailability();
-  const chosen = slotSelect.value;
-  const left = av[chosen] != null ? av[chosen] : MAX_TABLES_PER_SLOT;
+  const left = av[slot] != null ? av[slot] : MAX_TABLES_PER_SLOT;
   if (left < tablesNeeded) {
     alert('Selected slot does not have enough tables available. Please choose another slot.');
     refreshSlotOptions();
     return;
   }
 
-  // Simulate order placement: decrement availability, clear cart, redirect to success.
-  decrementSlot(chosen, tablesNeeded);
+  // Build order summary
+  const orderItems = cart.map(i => `${i.name} x${i.quantity}`).join('; ');
+  const orderSummary = `Items: ${orderItems} | People: ${people} | Tables: ${tablesNeeded} | Total: ₹${getCartTotal()}`;
 
-  // Optionally, you could store order details in localStorage / send to server.
-  // For now we just clear cart and redirect.
-  clearCart();
+  const file = screenshotInput.files[0];
+  const reader = new FileReader();
 
-  // Show small success (could be replaced by your success page)
-  window.location.href = 'success.html';
+  reader.onload = function(evt) {
+    const dataUrl = evt.target.result; // "data:<mimetype>;base64,XXXX..."
+    const parts = dataUrl.split(',');
+    const base64 = parts[1];
+    const mime = parts[0].match(/data:(.*);base64/)[1];
+
+    // Build a hidden form with necessary fields
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.enctype = 'multipart/form-data';
+    form.action = APPS_SCRIPT_WEBAPP_URL;
+    form.style.display = 'none';
+
+    // Put inputs: name, email, phone, slot, order, base64_image, filename, mimetype
+    const addInput = (k, v) => {
+      const i = document.createElement('input');
+      i.type = 'hidden';
+      i.name = k;
+      i.value = v || '';
+      form.appendChild(i);
+    };
+    addInput('name', name);
+    addInput('email', email);
+    addInput('phone', phone);
+    addInput('slot', slot);
+    addInput('order', orderSummary);
+    addInput('base64_image', base64);
+    addInput('filename', file.name);
+    addInput('mimetype', mime);
+
+    // Create (or reuse) a hidden iframe to target so current page doesn't navigate
+    let iframe = document.getElementById('apps-script-iframe');
+    if (!iframe) {
+      iframe = document.createElement('iframe');
+      iframe.id = 'apps-script-iframe';
+      iframe.name = 'apps-script-iframe';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+    }
+    form.target = iframe.name;
+    document.body.appendChild(form);
+
+    // Listen for iframe load -> treat as completion (note: cannot read cross-origin response body)
+    const onIFrameLoad = () => {
+      // cleanup
+      iframe.removeEventListener('load', onIFrameLoad);
+      form.remove();
+
+      // Update local availability, clear cart, go to success page
+      decrementSlot(slot, tablesNeeded);
+      clearCart();
+      // Show success / redirect
+      window.location.href = 'success.html';
+    };
+    iframe.addEventListener('load', onIFrameLoad);
+
+    // submit the form — this will POST the base64 payload to your Apps Script
+    form.submit();
+
+    // You may show a spinner/modal while waiting for iframe load...
+  };
+
+  // read file as dataURL
+  reader.readAsDataURL(file);
 };
+
 
 // DOMContentLoaded initialization
 document.addEventListener('DOMContentLoaded', () => {
