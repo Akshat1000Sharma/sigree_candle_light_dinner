@@ -191,21 +191,24 @@ const renderMenu = () => {
   `).join('');
 };
 
-// Switch tab by data-tab (no reliance on global `event`)
+// Switch tab by data-tab (explicit selectors for button and content)
 const switchTab = (tab) => {
-  // Update tab button active state
+  // tab is expected to be 'appetizer' or 'main-course'
+
+  // Update tab button active state (explicit .tab-btn selector)
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
   const btn = document.querySelector(`.tab-btn[data-tab="${tab}"]`);
   if (btn) btn.classList.add('active');
 
-  // Update tab content active state
+  // Update tab content active state (explicit .tab-content selector)
   document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-  const content = document.querySelector(`[data-tab="${tab}"]`);
+  const content = document.querySelector(`.tab-content[data-tab="${tab}"]`);
   if (content) content.classList.add('active');
 
   // Render menu into the now-active tab's grid
   renderMenu();
 };
+
 
 
 // Checkout form handling
@@ -250,15 +253,20 @@ const handleFileUpload = (e) => {
   }
 };
 
-// Init
 document.addEventListener('DOMContentLoaded', () => {
   updateCartUI();
 
   // Page-specific init
   if (document.querySelector('.menu-grid')) {
-    renderMenu('Appetizer');
+    // Render initial tab based on which tab button/content is active in HTML (appetizer by default)
+    renderMenu();
+
+    // Attach tab click handlers
     document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => switchTab(e.target.dataset.tab));
+      btn.addEventListener('click', (e) => {
+        const tab = e.currentTarget.dataset.tab;
+        switchTab(tab);
+      });
     });
   }
 
@@ -277,9 +285,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Qty buttons in modal
-  // const decBtn = document.querySelector('.qty-decrease');
-  // const incBtn = document.querySelector('.qty-increase');
-  // if (decBtn) decBtn.addEventListener('click', () => updateModalQuantity(-1));
-  // if (incBtn) incBtn.addEventListener('click', () => updateModalQuantity(1));
 });
