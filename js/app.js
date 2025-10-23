@@ -51,14 +51,14 @@ const menu_items = [
     description: "Crunchy on the outside, tender inside — perfect for spicy snack lovers.",
     image: "https://images.unsplash.com/photo-1690519315565-c31ce99f8d58?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
-  {
-    id: "7",
-    name: "Greekish Chicken",
-    category: "Starter",
-    price: 249,
-    description: "Juicy grilled chicken marinated in Mediterranean herbs and spices.",
-    image: "https://images.unsplash.com/photo-1562967916-eb82221dfb92?w=500"
-  },
+  // {
+  //   id: "7",
+  //   name: "Greekish Chicken",
+  //   category: "Starter",
+  //   price: 249,
+  //   description: "Juicy grilled chicken marinated in Mediterranean herbs and spices.",
+  //   image: "https://images.unsplash.com/photo-1562967916-eb82221dfb92?w=500"
+  // },
 
   // Main Course
   {
