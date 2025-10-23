@@ -1302,3 +1302,35 @@ header {
   line-height: 1.35;
   font-weight: 500;
 }
+
+
+/* small spinner inside button */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.btn-spinner {
+  stroke: currentColor;
+  stroke-dasharray: 90;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: spin 1s linear infinite;
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* circle styling in case button background is dark */
+.btn-spinner circle {
+  stroke: rgba(255,255,255,0.2);
+  stroke-width: 5;
+}
+.btn-spinner { color: #fff; } /* adjust color to match your button text color */
+
+/* optional .confirm-btn.loading style - slightly dim the button while loading */
+.confirm-btn.loading {
+  opacity: 0.9;
+  pointer-events: none;
+}
