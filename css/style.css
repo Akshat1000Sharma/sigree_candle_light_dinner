@@ -57,6 +57,27 @@ header {
   background-clip: text;
 }
 
+/* Prevent scrollbar on landing page */
+.landing-body {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.landing-body header {
+  position: relative;
+  z-index: 10;
+}
+
+.landing-body .hero {
+  height: calc(100vh - 4rem);
+  position: relative;
+  overflow: hidden;
+}
+
+.landing-body .hero > div.absolute {
+  z-index: 1;
+}
+
 /* --- Cart button (improved) --- */
 .cart-btn {
   position: relative;
@@ -1169,23 +1190,3 @@ header {
 }
 
 
-/* Prevent scrollbar on landing page */
-.landing-body {
-  overflow: hidden;
-  height: 100vh;
-}
-
-.landing-body header {
-  position: relative;
-  z-index: 10;
-}
-
-.landing-body .hero {
-  height: calc(100vh - 4rem);
-  position: relative;
-  overflow: hidden;
-}
-
-.landing-body .hero > div.absolute {
-  z-index: 1;
-}
