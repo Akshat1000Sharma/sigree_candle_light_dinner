@@ -129,14 +129,14 @@ const menu_items = [
     description: "Soft, moist red velvet cake layered with smooth cream cheese frosting.",
     image: "https://images.unsplash.com/photo-1714386148315-2f0e3eebcd5a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
-  {
-    id: "16",
-    name: "Blueberry Cheesecake",
-    category: "Dessert",
-    price: 99,
-    description: "Creamy cheesecake topped with luscious blueberry compote.",
-    image: "https://images.unsplash.com/photo-1642423974120-32a7a2cc393f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
-  },
+  // {
+  //   id: "16",
+  //   name: "Blueberry Cheesecake",
+  //   category: "Dessert",
+  //   price: 99,
+  //   description: "Creamy cheesecake topped with luscious blueberry compote.",
+  //   image: "https://images.unsplash.com/photo-1642423974120-32a7a2cc393f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
+  // },
   {
     id: "17",
     name: "Truffle Cake",
