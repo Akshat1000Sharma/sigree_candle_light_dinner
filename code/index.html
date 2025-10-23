@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sigree - Candle Light Dinner</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo">
+        <div class="candle-flame"></div>
+        <h1>Sigree</h1>
+      </div>
+    </div>
+  </header>
+
+  <main class="hero">
+    <!-- Floating elements -->
+    <div class="absolute top-20 left-10 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl animate-float" style="animation-delay: 0s;"></div>
+    <div class="absolute bottom-20 right-10 w-96 h-96 bg-[#8B0000]/10 rounded-full blur-3xl animate-float" style="animation-delay: 1s;"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#FFD700]/5 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+    <div class="absolute top-20 right-20 animate-float" style="animation-delay: 0.5s;"><div class="candle-flame"></div></div>
+    <div class="absolute bottom-32 left-20 animate-float" style="animation-delay: 1.5s;"><div class="candle-flame"></div></div>
+
+    <div class="relative z-10 space-y-8 animate-fade-in-up">
+      <h1 class="hero-title">Candle Light Dinner</h1>
+      <p class="hero-subtitle">Experience an enchanting evening of exquisite cuisine under the warm glow of candlelight</p>
+      <div class="decor-line">
+        <div class="h-px w-20 bg-gradient-to-r from-transparent to-[#D4AF37]"></div>
+        <div class="candle-flame"></div>
+        <div class="h-px w-20 bg-gradient-to-l from-transparent to-[#D4AF37]"></div>
+      </div>
+      <button class="begin-btn" onclick="window.location.href='menu.html'">Begin Your Experience</button>
+      <div class="features">
+        <div class="feature-card glass-dark">
+          <div class="feature-icon">🍽️</div>
+          <h3 class="feature-title">Fine Dining</h3>
+          <p class="feature-desc">Curated menu of authentic delicacies</p>
+        </div>
+        <div class="feature-card glass-dark">
+          <div class="feature-icon">🕯️</div>
+          <h3 class="feature-title">Romantic Ambience</h3>
+          <p class="feature-desc">Intimate setting with candlelight charm</p>
+        </div>
+        <div class="feature-card glass-dark">
+          <div class="feature-icon">💳</div>
+          <h3 class="feature-title">Easy Ordering</h3>
+          <p class="feature-desc">Seamless online ordering and payment</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

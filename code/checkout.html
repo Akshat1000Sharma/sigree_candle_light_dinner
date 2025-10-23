@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - Sigree</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo">
+        <div class="candle-flame"></div>
+        <h1>Sigree</h1>
+      </div>
+    </div>
+  </header>
+
+  <main class="checkout-container">
+    <a href="menu.html" class="back-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M15 18l-6-6 6-6"/></svg>
+      Back to Menu
+    </a>
+
+    <h1 class="checkout-title">Checkout</h1>
+
+    <div class="checkout-grid">
+      <div class="order-summary glass-dark">
+        <h2 class="card-title">Order Summary</h2>
+        <div id="summary-items"></div>
+        <div class="summary-total">
+          <span>Total:</span>
+          <span id="checkout-total">₹0</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="details-card glass-dark">
+          <h2 class="card-title">Your Details</h2>
+          <div class="form-group">
+            <label class="form-label" for="customer_name">Name *</label>
+            <input type="text" id="customer_name" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="customer_email">Email *</label>
+            <input type="email" id="customer_email" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="customer_phone">Phone Number *</label>
+            <input type="tel" id="customer_phone" class="form-input" required>
+          </div>
+        </div>
+
+        <div class="payment-card glass-dark" style="margin-top: 1.5rem;">
+          <h2 class="card-title">Payment</h2>
+          <div class="qr-section">
+            <p class="form-label">Scan the QR code below to complete payment</p>
+            <div class="qr-placeholder">
+              <div class="qr-inner">
+                <div style="font-size: 4rem;">💳</div>
+                <p>QR Code Placeholder</p>
+                <p style="font-size: 0.875rem;">Add your payment QR here</p>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Upload Payment Screenshot * (Required)</label>
+            <label for="payment_screenshot" class="upload-area">
+              <svg class="upload-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <p class="upload-text">Click to upload payment screenshot</p>
+              <p class="upload-hint">PNG, JPG up to 5MB</p>
+            </label>
+            <input type="file" id="payment_screenshot" accept="image/*" style="display: none;" onchange="handleFileUpload(event)">
+            <div id="upload-preview" style="display: none;">
+              <img id="screenshot-preview" class="screenshot-preview" alt="Preview" />
+              <button class="change-btn" onclick="document.getElementById('payment_screenshot').value = ''; document.getElementById('upload-preview').style.display = 'none'; document.querySelector('.upload-area').style.display = 'block';">Change Screenshot</button>
+            </div>
+          </div>
+          <button class="confirm-btn" onclick="handleCheckoutForm()">Confirm Order</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/app.js"></script>
+  <script>
+    // Render summary
+    document.addEventListener('DOMContentLoaded', () => {
+      const summaryEl = document.getElementById('summary-items');
+      const totalEl = document.getElementById('checkout-total');
+      summaryEl.innerHTML = cart.map(item => `
+        <div class="summary-item">
+          <div>
+            <div class="summary-item-name">${item.name}</div>
+            <p class="summary-item-qty">Quantity: ${item.quantity}</p>
+          </div>
+          <span>₹${item.price * item.quantity}</span>
+        </div>
+      `).join('');
+      totalEl.textContent = `₹${getCartTotal()}`;
+    });
+  </script>
+</body>
+</html>

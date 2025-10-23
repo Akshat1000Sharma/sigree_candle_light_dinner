@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu - Sigree</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo">
+        <div class="candle-flame"></div>
+        <h1>Sigree</h1>
+      </div>
+      <button class="cart-btn" onclick="toggleCart()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0 1.5 7a1 1 0 0 0 1 .8h8a1 1 0 0 0 1-.8l1.5-7"/></svg>
+        <span class="cart-count" style="display: none;"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="overlay" onclick="closeCart()"></div>
+
+  <!-- Cart Sidebar -->
+  <aside class="cart-sidebar">
+    <div class="cart-header">
+      <h2 class="cart-title">Your Cart</h2>
+      <button class="close-cart" onclick="closeCart()">&times;</button>
+    </div>
+    <div class="cart-empty" style="display: none;">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0 1.5 7a1 1 0 0 0 1 .8h8a1 1 0 0 0 1-.8l1.5-7"/></svg>
+      <p>Your cart is empty</p>
+    </div>
+    <div class="cart-items"></div>
+    <div class="cart-total-section">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <span class="cart-total-label">Total:</span>
+        <span class="cart-total-amount">₹0</span>
+      </div>
+      <button class="proceed-btn" style="display: none;" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
+    </div>
+  </aside>
+
+  <main class="menu-container">
+    <div class="event-desc">
+      <div class="glass-dark animate-fade-in-up">
+        <p>Experience an unforgettable evening filled with warmth, laughter, and elegance at our exclusive Candlelight Dinner. Designed especially for college students, this event blends a cozy ambience with delicious food, soft music, and beautiful décor — perfect for creating lasting memories with that special someone. Dress up, unwind, and let the soft glow of candles and good company make your night truly magical.</p>
+      </div>
+    </div>
+
+    <div class="menu-title-section animate-fade-in-up">
+      <h2 class="menu-title">Our Menu</h2>
+      <p class="menu-subtitle">Indulge in our carefully curated selection of delicacies</p>
+      <div class="decor-line">
+        <div class="h-px w-16 bg-gradient-to-r from-transparent to-[#D4AF37]"></div>
+        <div class="candle-flame"></div>
+        <div class="h-px w-16 bg-gradient-to-l from-transparent to-[#D4AF37]"></div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="appetizer">Appetizers</button>
+      <button class="tab-btn" data-tab="main-course">Main Course</button>
+    </div>
+
+    <div data-tab="appetizer" class="tab-content active">
+      <div class="menu-grid"></div>
+    </div>
+    <div data-tab="main-course" class="tab-content">
+      <div class="menu-grid"></div>
+    </div>
+  </main>
+
+  <!-- Quantity Modal -->
+  <div class="quantity-modal">
+    <div class="overlay"></div>
+    <div class="modal-content glass-dark">
+      <button class="close-modal" onclick="closeQuantityModal()">&times;</button>
+      <h2 class="modal-title">Select Quantity</h2>
+      <div class="modal-item-name"></div>
+      <div class="modal-price"></div>
+      <div class="qty-section">
+        <button class="qty-btn qty-decrease" onclick="updateModalQuantity(-1)">-</button>
+        <input type="number" class="qty-input" min="1" value="1" onchange="updateModalQuantity(0)">
+        <button class="qty-btn qty-increase" onclick="updateModalQuantity(1)">+</button>
+      </div>
+      <div class="modal-total">Total: ₹0</div>
+      <button class="add-to-cart-modal" onclick="confirmAddToCart()">Add to Cart</button>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
