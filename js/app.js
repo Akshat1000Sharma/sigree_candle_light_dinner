@@ -155,11 +155,72 @@ const menu_items = [
   }
 ];
 
-
-// Cart management
+// --------- Cart management ----------
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-// Functions
+// --------- Slot management ----------
+// Four slots, each max 20 tables. Persisted in localStorage under 'slotAvailability'.
+// Slot keys: slot1, slot2, slot3, slot4
+const SLOTS = [
+  { id: 'slot1', label: '8:00 PM - 8:45 PM' },
+  { id: 'slot2', label: '8:45 PM - 9:30 PM' },
+  { id: 'slot3', label: '9:30 PM - 10:15 PM' },
+  { id: 'slot4', label: '10:15 PM - 11:00 PM' }
+];
+const MAX_TABLES_PER_SLOT = 20;
+
+const getSlotAvailability = () => {
+  const raw = localStorage.getItem('slotAvailability');
+  if (raw) {
+    try {
+      return JSON.parse(raw);
+    } catch (e) { /* fallback */ }
+  }
+  // initialize
+  const initial = {};
+  SLOTS.forEach(s => initial[s.id] = MAX_TABLES_PER_SLOT);
+  localStorage.setItem('slotAvailability', JSON.stringify(initial));
+  return initial;
+};
+
+const setSlotAvailability = (obj) => {
+  localStorage.setItem('slotAvailability', JSON.stringify(obj));
+};
+
+const decrementSlot = (slotId, tables) => {
+  const av = getSlotAvailability();
+  av[slotId] = Math.max(0, (av[slotId] || 0) - tables);
+  setSlotAvailability(av);
+};
+
+// Render slot options with remaining counts
+const refreshSlotOptions = () => {
+  const select = document.getElementById('slot_select');
+  if (!select) return;
+  const av = getSlotAvailability();
+  // compute tables needed for this checkout (1 table per 2 individuals)
+  const people = getCartCount();
+  const tablesNeeded = Math.max(1, Math.ceil(people / 2)); // at least 1
+  select.innerHTML = ''; // clear
+  SLOTS.forEach(slot => {
+    const left = av[slot.id] != null ? av[slot.id] : MAX_TABLES_PER_SLOT;
+    const option = document.createElement('option');
+    option.value = slot.id;
+    option.textContent = `${slot.label} — ${left} tables left`;
+    if (left < tablesNeeded) {
+      option.disabled = true;
+      option.textContent += ' (not enough tables)';
+    }
+    select.appendChild(option);
+  });
+  // If the current selected option is disabled/empty, try to select first valid
+  if (!select.value || select.selectedOptions[0].disabled) {
+    const firstValid = Array.from(select.options).find(o => !o.disabled);
+    if (firstValid) select.value = firstValid.value;
+  }
+};
+
+// Functions (cart operations) — unchanged except we call refreshSlotOptions
 const addToCart = (item, quantity = 1) => {
   const existingItem = cart.find((i) => i.id === item.id);
   if (existingItem) {
@@ -246,9 +307,11 @@ const updateCartUI = () => {
   }
 
   if (cartTotalEl) cartTotalEl.textContent = `₹${getCartTotal()}`;
+  // keep slot options updated whenever cart changes
+  refreshSlotOptions();
 };
 
-// Cart sidebar toggle
+// Cart sidebar toggle (unchanged)
 const toggleCart = () => {
   const sidebar = document.querySelector('.cart-sidebar');
   const overlay = document.querySelector('.overlay');
@@ -260,39 +323,49 @@ const toggleCart = () => {
 };
 
 const closeCart = () => {
-  document.querySelector('.cart-sidebar').classList.remove('open');
-  document.querySelector('.overlay').classList.remove('active');
+  const sidebar = document.querySelector('.cart-sidebar');
+  const overlay = document.querySelector('.overlay');
+  if (sidebar) sidebar.classList.remove('open');
+  if (overlay) overlay.classList.remove('active');
 };
 
-// Quantity modal
+// Quantity modal (unchanged)
 let selectedItem = null;
 let selectedQuantity = 1;
 
 const openQuantityModal = (item) => {
   selectedItem = item;
   selectedQuantity = 1;
-  document.querySelector('.modal-item-name').textContent = item.name;
-  document.querySelector('.modal-price').textContent = `₹${item.price} per item`;
+  const nameEl = document.querySelector('.modal-item-name');
+  const priceEl = document.querySelector('.modal-price');
+  if (nameEl) nameEl.textContent = item.name;
+  if (priceEl) priceEl.textContent = `₹${item.price} per item`;
   updateModalTotal();
-  document.querySelector('.quantity-modal').classList.add('active');
-  document.querySelector('.overlay').classList.add('active');
+  const modal = document.querySelector('.quantity-modal');
+  if (modal) modal.classList.add('active');
+  const overlay = document.querySelector('.overlay');
+  if (overlay) overlay.classList.add('active');
 };
 
 const closeQuantityModal = () => {
-  document.querySelector('.quantity-modal').classList.remove('active');
-  document.querySelector('.overlay').classList.remove('active');
+  const modal = document.querySelector('.quantity-modal');
+  if (modal) modal.classList.remove('active');
+  const overlay = document.querySelector('.overlay');
+  if (overlay) overlay.classList.remove('active');
   selectedItem = null;
 };
 
 const updateModalQuantity = (delta) => {
   selectedQuantity = Math.max(1, selectedQuantity + delta);
-  document.querySelector('.qty-input').value = selectedQuantity;
+  const input = document.querySelector('.qty-input');
+  if (input) input.value = selectedQuantity;
   updateModalTotal();
 };
 
 const updateModalTotal = () => {
   const total = selectedItem ? selectedItem.price * selectedQuantity : 0;
-  document.querySelector('.modal-total').textContent = `Total: ₹${total}`;
+  const el = document.querySelector('.modal-total');
+  if (el) el.textContent = `Total: ₹${total}`;
 };
 
 const confirmAddToCart = () => {
@@ -302,16 +375,12 @@ const confirmAddToCart = () => {
   }
 };
 
-// Render menu into the active tab's grid
+// Render menu into the active tab's grid (unchanged)
 const renderMenu = () => {
-  // Find the active tab-content and its .menu-grid
   const activeTabContent = document.querySelector('.tab-content.active');
   if (!activeTabContent) return;
-
   const container = activeTabContent.querySelector('.menu-grid');
   if (!container) return;
-
-  // Map data-tab value to category string used in menu_items
   const dataTab = activeTabContent.dataset.tab;
   const categoryMap = {
     'soup': 'Soup',
@@ -321,10 +390,8 @@ const renderMenu = () => {
     'dessert': 'Dessert'
   };
   const category = categoryMap[dataTab];
-  if (!category) return; // Invalid tab, bail out
-
+  if (!category) return;
   const filteredItems = menu_items.filter(item => item.category === category);
-  // inside renderMenu() when generating each card
   container.innerHTML = filteredItems.map((item, index) => `
     <div class="menu-card glass-dark animate-fade-in" style="animation-delay: ${index * 0.1}s">
       <div class="menu-image-wrapper">
@@ -338,7 +405,6 @@ const renderMenu = () => {
           <p class="menu-desc">${item.description}</p>
         </div>
 
-        <!-- Footer pinned to bottom -->
         <div class="menu-footer">
           <span class="menu-price">₹${item.price}</span>
           <button class="add-btn" onclick="openQuantityModal(${JSON.stringify(item).replace(/"/g, '&quot;')})">
@@ -350,34 +416,70 @@ const renderMenu = () => {
   `).join('');
 };
 
-// Switch tab by data-tab (explicit selectors for button and content)
+// Switch tab (unchanged)
 const switchTab = (tab) => {
-  // tab is expected to be 'appetizer' or 'main-course'
-
-  // Update tab button active state (explicit .tab-btn selector)
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
   const btn = document.querySelector(`.tab-btn[data-tab="${tab}"]`);
   if (btn) btn.classList.add('active');
-
-  // Update tab content active state (explicit .tab-content selector)
   document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
   const content = document.querySelector(`.tab-content[data-tab="${tab}"]`);
   if (content) content.classList.add('active');
-
-  // Render menu into the now-active tab's grid
   renderMenu();
 };
 
+// --------- File upload preview and controls (improved) ----------
+const handleFileUpload = (e) => {
+  const file = e.target.files[0];
+  const previewDiv = document.getElementById('upload-preview');
+  const uploadArea = document.getElementById('upload-area');
+  const uploadText = document.getElementById('upload-text');
+  const filenameEl = document.getElementById('uploaded-filename');
 
+  if (file) {
+    if (file.size > 5 * 1024 * 1024) {
+      alert('File size should be less than 5MB');
+      e.target.value = '';
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const preview = document.getElementById('screenshot-preview');
+      preview.src = ev.target.result;
+      if (previewDiv) previewDiv.style.display = 'block';
+      if (uploadArea) uploadArea.style.display = 'none';
+      if (filenameEl) filenameEl.textContent = file.name;
+      if (uploadText) uploadText.textContent = 'Screenshot ready';
+    };
+    reader.readAsDataURL(file);
+  }
+};
 
-// Checkout form handling
+const resetUpload = () => {
+  const input = document.getElementById('payment_screenshot');
+  const previewDiv = document.getElementById('upload-preview');
+  const uploadArea = document.getElementById('upload-area');
+  const previewImg = document.getElementById('screenshot-preview');
+  const filenameEl = document.getElementById('uploaded-filename');
+  const uploadText = document.getElementById('upload-text');
+
+  if (input) input.value = '';
+  if (previewImg) previewImg.src = '';
+  if (filenameEl) filenameEl.textContent = '';
+  if (previewDiv) previewDiv.style.display = 'none';
+  if (uploadArea) uploadArea.style.display = 'block';
+  if (uploadText) uploadText.textContent = 'Click to upload payment screenshot';
+};
+
+// Checkout form handling (updated to check slot availability)
 const handleCheckoutForm = () => {
   const formData = {
-    name: document.getElementById('customer_name').value,
-    email: document.getElementById('customer_email').value,
-    phone: document.getElementById('customer_phone').value,
+    name: document.getElementById('customer_name').value.trim(),
+    email: document.getElementById('customer_email').value.trim(),
+    phone: document.getElementById('customer_phone').value.trim(),
   };
-  const screenshot = document.getElementById('payment_screenshot').files[0];
+  const screenshotInput = document.getElementById('payment_screenshot');
+  const screenshot = screenshotInput && screenshotInput.files ? screenshotInput.files[0] : null;
+  const slotSelect = document.getElementById('slot_select');
 
   if (!formData.name || !formData.email || !formData.phone) {
     alert('Please fill all details');
@@ -387,40 +489,42 @@ const handleCheckoutForm = () => {
     alert('Please upload payment screenshot');
     return;
   }
-
-  // Simulate order placement
-  clearCart();
-  window.location.href = 'success.html'; // Or show success inline
-};
-
-// File upload preview
-const handleFileUpload = (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    if (file.size > 5 * 1024 * 1024) {
-      alert('File size should be less than 5MB');
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      const preview = document.getElementById('screenshot-preview');
-      preview.src = ev.target.result;
-      preview.parentElement.style.display = 'block';
-      document.querySelector('.upload-area').style.display = 'none';
-    };
-    reader.readAsDataURL(file);
+  if (!slotSelect || !slotSelect.value) {
+    alert('Please choose a slot');
+    return;
   }
+
+  // compute tables required: 1 table per 2 individuals, at least 1
+  const people = getCartCount();
+  const tablesNeeded = Math.max(1, Math.ceil(people / 2));
+
+  const av = getSlotAvailability();
+  const chosen = slotSelect.value;
+  const left = av[chosen] != null ? av[chosen] : MAX_TABLES_PER_SLOT;
+  if (left < tablesNeeded) {
+    alert('Selected slot does not have enough tables available. Please choose another slot.');
+    refreshSlotOptions();
+    return;
+  }
+
+  // Simulate order placement: decrement availability, clear cart, redirect to success.
+  decrementSlot(chosen, tablesNeeded);
+
+  // Optionally, you could store order details in localStorage / send to server.
+  // For now we just clear cart and redirect.
+  clearCart();
+
+  // Show small success (could be replaced by your success page)
+  window.location.href = 'success.html';
 };
 
+// DOMContentLoaded initialization
 document.addEventListener('DOMContentLoaded', () => {
   updateCartUI();
 
   // Page-specific init
   if (document.querySelector('.menu-grid')) {
-    // Render initial tab based on which tab button/content is active in HTML (appetizer by default)
     renderMenu();
-
-    // Attach tab click handlers
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const tab = e.currentTarget.dataset.tab;
@@ -436,6 +540,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // populate slot select
+  refreshSlotOptions();
+
   // Close on overlay click
   document.querySelectorAll('.overlay').forEach(ov => {
     ov.addEventListener('click', () => {
@@ -444,4 +551,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // connect reset upload button(s) if present in checkout.html via event listeners are setup in that file
 });

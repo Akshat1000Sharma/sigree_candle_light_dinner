@@ -1190,3 +1190,115 @@ header {
 }
 
 
+/* --- QR: smaller and nicely contained --- */
+.qr-placeholder {
+  background: white;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  display: inline-block;
+}
+
+/* reduce QR size so it doesn't dominate the card */
+.qr-img {
+  width: 10.5rem;      /* smaller than before */
+  height: 10.5rem;
+  object-fit: contain; /* preserve aspect ratio */
+  display: block;
+  margin: 0 auto;      /* center inside placeholder */
+  border-radius: 6px;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+}
+
+/* --- Upload area: make it clearly a button and avoid overlap --- */
+.form-group { 
+  margin-bottom: 1.25rem; /* slightly larger spacing to avoid crowding */
+  position: relative;     /* keep children flow-normal */
+}
+
+/* make label look and behave like a real block button */
+.upload-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  min-height: 5.25rem;            /* give it visible target height */
+  padding: 1rem;
+  border: 2px dashed rgba(212, 175, 55, 0.3);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.15s ease;
+  background: rgba(0,0,0,0.02);
+  z-index: 1;                      /* keep it above other siblings, but not absolute */
+  margin-top: 0.5rem;             /* small gap from preceding field */
+}
+
+/* clearer hover affordance */
+.upload-area:hover {
+  border-color: #D4AF37;
+  background: rgba(212,175,55,0.02);
+}
+
+/* keep icon and label readable */
+.upload-icon {
+  width: 2.6rem;
+  height: 2.6rem;
+  color: #D4AF37;
+  margin-bottom: 0;
+}
+
+/* text spacing inside label */
+.upload-text { 
+  margin: 0.125rem 0;
+  font-weight: 500;
+}
+
+.upload-hint {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+/* upload preview block */
+#upload-preview {
+  display: none; /* shown by JS as before */
+  margin-top: 0.5rem;
+}
+
+.screenshot-preview {
+  max-height: 8.5rem;   /* slightly reduced preview height to fit layout */
+  border-radius: 0.25rem;
+  margin: 0.75rem 0;
+  display: block;
+}
+
+/* file-name and preview actions */
+.uploaded-filename {
+  margin: 0.25rem 0;
+  color: rgba(245,245,220,0.95);
+  font-size: 0.9rem;
+  word-break: break-all;
+}
+
+.upload-preview-actions { display:flex; gap:0.5rem; }
+
+/* --- Disclaimer spacing & color --- */
+/* add a small gap under the total line and style the disclaimer red */
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #D4AF37;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(212, 175, 55, 0.1);
+  margin-bottom: 0.5rem; /* space before disclaimer */
+}
+
+.disclaimer {
+  margin-top: 2rem;      /* ensure a visible gap from total */
+  font-size: 0.88rem;
+  color: #ff4d4f;           /* red — stands out and clearly visible */
+  line-height: 1.35;
+  font-weight: 500;
+}

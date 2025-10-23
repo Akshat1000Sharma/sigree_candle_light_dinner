@@ -32,22 +32,33 @@
           <span>Total:</span>
           <span id="checkout-total">₹0</span>
         </div>
+        <p class="disclaimer">
+          Note: A single order books a table of 2 individual for a 45 min slot. Kindly arrive during the start time of the slot to avoid unnecessary crowding later. All orders will be prebooked and no order will be accepted after 27th October 2025.
+        </p>
       </div>
 
       <div>
         <div class="details-card glass-dark">
           <h2 class="card-title">Your Details</h2>
           <div class="form-group">
-            <label class="form-label" for="customer_name">Name</label>
+            <label class="form-label" for="customer_name">Name *</label>
             <input type="text" id="customer_name" class="form-input" required>
           </div>
           <div class="form-group">
-            <label class="form-label" for="customer_email">Email</label>
+            <label class="form-label" for="customer_email">Email *</label>
             <input type="email" id="customer_email" class="form-input" required>
           </div>
           <div class="form-group">
-            <label class="form-label" for="customer_phone">Phone Number</label>
+            <label class="form-label" for="customer_phone">Phone Number *</label>
             <input type="tel" id="customer_phone" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="slot_select">Choose a slot *</label>
+            <select id="slot_select" class="form-input slot-select" required>
+              <!-- options populated by JS -->
+            </select>
+            <small class="slot-note">Event: 8:00 PM — 11:00 PM. Each slot = 45 mins. Max 20 tables per slot.</small>
           </div>
         </div>
 
@@ -56,26 +67,31 @@
           <div class="qr-section">
             <p class="form-label">Scan the QR code below to complete payment</p>
             <div class="qr-placeholder">
-              <div class="qr-inner">
-                <div style="font-size: 4rem;">💳</div>
-                <p>QR Code Placeholder</p>
-                <p style="font-size: 0.875rem;">Add your payment QR here</p>
-              </div>
+              <!-- Actual QR image from static/qr.jpg -->
+              <img src="static/qr.jpg" alt="Payment QR" class="qr-img" />
             </div>
           </div>
+
           <div class="form-group">
             <label class="form-label">Upload Payment Screenshot * (Required)</label>
-            <label for="payment_screenshot" class="upload-area">
+
+            <label for="payment_screenshot" id="upload-area" class="upload-area">
               <svg class="upload-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-              <p class="upload-text">Click to upload payment screenshot</p>
+              <p class="upload-text" id="upload-text">Click to upload payment screenshot</p>
               <p class="upload-hint">PNG, JPG up to 5MB</p>
             </label>
             <input type="file" id="payment_screenshot" accept="image/*" style="display: none;" onchange="handleFileUpload(event)">
+
             <div id="upload-preview" style="display: none;">
               <img id="screenshot-preview" class="screenshot-preview" alt="Preview" />
-              <button class="change-btn" onclick="document.getElementById('payment_screenshot').value = ''; document.getElementById('upload-preview').style.display = 'none'; document.querySelector('.upload-area').style.display = 'block';">Change Screenshot</button>
+              <p id="uploaded-filename" class="uploaded-filename"></p>
+              <div class="upload-preview-actions">
+                <button type="button" class="change-btn" id="change-upload-btn">Change Screenshot</button>
+                <button type="button" class="change-btn secondary" id="remove-upload-btn">Remove</button>
+              </div>
             </div>
           </div>
+
           <button class="confirm-btn" onclick="handleCheckoutForm()">Confirm Order</button>
         </div>
       </div>
@@ -84,20 +100,37 @@
 
   <script src="js/app.js"></script>
   <script>
-    // Render summary
+    // Render summary (runs after app.js defines cart and getCartTotal)
     document.addEventListener('DOMContentLoaded', () => {
       const summaryEl = document.getElementById('summary-items');
       const totalEl = document.getElementById('checkout-total');
-      summaryEl.innerHTML = cart.map(item => `
-        <div class="summary-item">
-          <div>
-            <div class="summary-item-name">${item.name}</div>
-            <p class="summary-item-qty">Quantity: ${item.quantity}</p>
+      if (summaryEl && typeof cart !== 'undefined') {
+        summaryEl.innerHTML = cart.map(item => `
+          <div class="summary-item">
+            <div>
+              <div class="summary-item-name">${item.name}</div>
+              <p class="summary-item-qty">Quantity: ${item.quantity}</p>
+            </div>
+            <span>₹${item.price * item.quantity}</span>
           </div>
-          <span>₹${item.price * item.quantity}</span>
-        </div>
-      `).join('');
-      totalEl.textContent = `₹${getCartTotal()}`;
+        `).join('');
+      }
+      if (totalEl && typeof getCartTotal === 'function') {
+        totalEl.textContent = `₹${getCartTotal()}`;
+      }
+    });
+
+    // Connect preview remove/change buttons (they use functions in app.js)
+    document.addEventListener('DOMContentLoaded', () => {
+      const changeBtn = document.getElementById('change-upload-btn');
+      const removeBtn = document.getElementById('remove-upload-btn');
+      if (changeBtn) changeBtn.addEventListener('click', () => {
+        // open file selector again
+        document.getElementById('payment_screenshot').click();
+      });
+      if (removeBtn) removeBtn.addEventListener('click', () => {
+        resetUpload();
+      });
     });
   </script>
 </body>
