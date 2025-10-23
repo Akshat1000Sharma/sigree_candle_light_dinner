@@ -157,10 +157,18 @@ const confirmAddToCart = () => {
   }
 };
 
-// Render menu
-const renderMenu = (category = 'Appetizer') => {
-  const container = document.querySelector('.menu-grid');
+// Render menu into the active tab's grid
+const renderMenu = () => {
+  // Find the active tab-content and its .menu-grid
+  const activeTabContent = document.querySelector('.tab-content.active');
+  if (!activeTabContent) return;
+
+  const container = activeTabContent.querySelector('.menu-grid');
   if (!container) return;
+
+  // Map data-tab value to category string used in menu_items
+  const dataTab = activeTabContent.dataset.tab; // 'appetizer' or 'main-course'
+  const category = dataTab === 'appetizer' ? 'Appetizer' : 'Main Course';
 
   const filteredItems = menu_items.filter(item => item.category === category);
   container.innerHTML = filteredItems.map((item, index) => `
@@ -183,14 +191,22 @@ const renderMenu = (category = 'Appetizer') => {
   `).join('');
 };
 
-// Tab switching
+// Switch tab by data-tab (no reliance on global `event`)
 const switchTab = (tab) => {
+  // Update tab button active state
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-  event.target.classList.add('active');
+  const btn = document.querySelector(`.tab-btn[data-tab="${tab}"]`);
+  if (btn) btn.classList.add('active');
+
+  // Update tab content active state
   document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-  document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
-  renderMenu(tab === 'appetizer' ? 'Appetizer' : 'Main Course');
+  const content = document.querySelector(`[data-tab="${tab}"]`);
+  if (content) content.classList.add('active');
+
+  // Render menu into the now-active tab's grid
+  renderMenu();
 };
+
 
 // Checkout form handling
 const handleCheckoutForm = () => {
@@ -262,8 +278,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Qty buttons in modal
-  const decBtn = document.querySelector('.qty-decrease');
-  const incBtn = document.querySelector('.qty-increase');
-  if (decBtn) decBtn.addEventListener('click', () => updateModalQuantity(-1));
-  if (incBtn) incBtn.addEventListener('click', () => updateModalQuantity(1));
+  // const decBtn = document.querySelector('.qty-decrease');
+  // const incBtn = document.querySelector('.qty-increase');
+  // if (decBtn) decBtn.addEventListener('click', () => updateModalQuantity(-1));
+  // if (incBtn) incBtn.addEventListener('click', () => updateModalQuantity(1));
 });
