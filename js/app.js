@@ -1,19 +1,160 @@
 // Menu items array
 const menu_items = [
-  // Appetizers
-  {"id": "1", "name": "Vietnamese Spring Roll", "category": "Appetizer", "price": 149, "description": "(5 pieces) Fresh, crunchy, and bursting with vibrant flavors wrapped in delicate rice paper.", "image": "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=500"},
-  {"id": "2", "name": "Cream of Mushroom Soup", "category": "Appetizer", "price": 149, "description": "A silky, creamy blend of mushrooms and herbs that warms the soul.", "image": "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=500"},
-  {"id": "3", "name": "Chicken Kurkure", "category": "Appetizer", "price": 199, "description": "Crispy on the outside, tender inside — a perfect fusion of spice and crunch", "image": "https://images.unsplash.com/photo-1562967916-eb82221dfb92?w=500"},
-  {"id": "11", "name": "Chicken Kurkure", "category": "Appetizer", "price": 199, "description": "Crispy on the outside, tender inside — a perfect fusion of spice and crunch", "image": "https://images.unsplash.com/photo-1562967916-eb82221dfb92?w=500"},
-  {"id": "12", "name": "Chicken Kurkure", "category": "Appetizer", "price": 199, "description": "Crispy on the outside, tender inside — a perfect fusion of spice and crunch", "image": "https://images.unsplash.com/photo-1562967916-eb82221dfb92?w=500"},
+  // Soups
+  {
+    id: "1",
+    name: "Cream of Mushroom Soup",
+    category: "Soup",
+    price: 129,
+    description: "A creamy, velvety soup made with fresh mushrooms and herbs — comforting and delicious.",
+    image: "https://images.unsplash.com/photo-1604908177070-3bb38a1c3552?w=500"
+  },
+  {
+    id: "2",
+    name: "Chicken Soup",
+    category: "Soup",
+    price: 109,
+    description: "A hearty, flavorful soup with tender chicken chunks simmered in savory broth.",
+    image: "https://images.unsplash.com/photo-1625944277540-3ed8a6eac42e?w=500"
+  },
+
+  // Starters
+  {
+    id: "3",
+    name: "Vietnamese Spring Roll",
+    category: "Starter",
+    price: 129,
+    description: "Fresh, crunchy rolls packed with vegetables and authentic Vietnamese flavors.",
+    image: "https://images.unsplash.com/photo-1617196034796-73e5bbdb8b41?w=500"
+  },
+  {
+    id: "4",
+    name: "Tandoori Paneer Momos",
+    category: "Starter",
+    price: 129,
+    description: "Smoky tandoori momos stuffed with soft paneer and aromatic Indian spices.",
+    image: "https://images.unsplash.com/photo-1631515243349-90cb8a4e0b0b?w=500"
+  },
+  {
+    id: "5",
+    name: "Loaded Nachos",
+    category: "Starter",
+    price: 109,
+    description: "Crispy nachos layered with melted cheese, beans, jalapeños, and tangy salsa.",
+    image: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=500"
+  },
+  {
+    id: "6",
+    name: "Chicken Kurkure",
+    category: "Starter",
+    price: 149,
+    description: "Crunchy on the outside, tender inside — perfect for spicy snack lovers.",
+    image: "https://images.unsplash.com/photo-1600628422019-90a86813f54f?w=500"
+  },
+  {
+    id: "7",
+    name: "Greekish Chicken",
+    category: "Starter",
+    price: 249,
+    description: "Juicy grilled chicken marinated in Mediterranean herbs and spices.",
+    image: "https://images.unsplash.com/photo-1562967916-eb82221dfb92?w=500"
+  },
+
   // Main Course
-  {"id": "4", "name": "Chili Oil Pasta", "category": "Main Course", "price": 249, "description": "Sweet, spicy, and perfectly balanced — pasta with a bold twist.", "image": "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=500"},
-  {"id": "5", "name": "Green Thai Curry (Veg)", "category": "Main Course", "price": 239, "description": "A creamy, aromatic blend of vegetables simmered in rich Thai spices, served with fragrant Jasmine rice.", "image": "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=500"},
-  {"id": "6", "name": "Green Thai Curry (Non-Veg)", "category": "Main Course", "price": 279, "description": "Tender chicken simmered in a rich coconut curry, bursting with authentic Thai flavors.", "image": "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=500"},
-  {"id": "7", "name": "Peri Peri Chicken", "category": "Main Course", "price": 279, "description": "Juicy chicken tossed in fiery peri peri, paired with fragrant golden rice.", "image": "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=500"},
-  {"id": "8", "name": "Peri Peri Chicken", "category": "Main Course", "price": 279, "description": "Juicy chicken tossed in fiery peri peri, paired with fragrant golden rice.", "image": "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=500"},
-  {"id": "9", "name": "Peri Peri Chicken", "category": "Main Course", "price": 279, "description": "Juicy chicken tossed in fiery peri peri, paired with fragrant golden rice.", "image": "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=500"},
+  {
+    id: "8",
+    name: "Caramelized Onion and Chilli Oil Pasta",
+    category: "Main Course",
+    price: 249,
+    description: "Rich pasta tossed in a bold mix of caramelized onions, garlic, and spicy chilli oil.",
+    image: "https://images.unsplash.com/photo-1613145993483-1a1f0e0b3d5c?w=500"
+  },
+  {
+    id: "9",
+    name: "Green Thai Curry (Veg) with Jasmine Rice",
+    category: "Main Course",
+    price: 239,
+    description: "A creamy, fragrant green curry with vegetables, paired perfectly with jasmine rice.",
+    image: "https://images.unsplash.com/photo-1579880645070-282f4bacc30b?w=500"
+  },
+  {
+    id: "10",
+    name: "Green Thai Curry (Non-Veg) with Jasmine Rice",
+    category: "Main Course",
+    price: 279,
+    description: "Tender chicken simmered in rich green Thai curry, served with jasmine rice.",
+    image: "https://images.unsplash.com/photo-1604908554169-937f3b91a940?w=500"
+  },
+  {
+    id: "11",
+    name: "Peri Peri Chicken with Yellow Rice",
+    category: "Main Course",
+    price: 279,
+    description: "Fiery peri peri chicken served with fragrant yellow rice — spicy and satisfying.",
+    image: "https://images.unsplash.com/photo-1625944277540-3ed8a6eac42e?w=500"
+  },
+
+  // Drinks
+  {
+    id: "12",
+    name: "Virgin Mojito",
+    category: "Drink",
+    price: 89,
+    description: "A refreshing blend of mint, lime, and soda — the perfect thirst quencher.",
+    image: "https://images.unsplash.com/photo-1562059390-a761a084768e?w=500"
+  },
+  {
+    id: "13",
+    name: "Hazelnut Cold Coffee",
+    category: "Drink",
+    price: 109,
+    description: "Smooth, chilled coffee infused with rich hazelnut flavor.",
+    image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=500"
+  },
+  {
+    id: "14",
+    name: "Choco Brownie Shake",
+    category: "Drink",
+    price: 129,
+    description: "Thick, indulgent chocolate shake topped with brownie bits.",
+    image: "https://images.unsplash.com/photo-1601924582971-df6b86a20f9b?w=500"
+  },
+
+  // Desserts
+  {
+    id: "15",
+    name: "Red Velvet Cake",
+    category: "Dessert",
+    price: 79,
+    description: "Soft, moist red velvet cake layered with smooth cream cheese frosting.",
+    image: "https://images.unsplash.com/photo-1599785209798-9b0b91a1c03d?w=500"
+  },
+  {
+    id: "16",
+    name: "Blueberry Cheesecake",
+    category: "Dessert",
+    price: 99,
+    description: "Creamy cheesecake topped with luscious blueberry compote.",
+    image: "https://images.unsplash.com/photo-1601972599720-b1e4e1a9f5c4?w=500"
+  },
+  {
+    id: "17",
+    name: "Truffle Cake",
+    category: "Dessert",
+    price: 59,
+    description: "Decadent chocolate truffle cake with rich, fudgy layers.",
+    image: "https://images.unsplash.com/photo-1606312616070-9afc7a1a1b5c?w=500"
+  },
+  {
+    id: "18",
+    name: "Brownie with Ice Cream",
+    category: "Dessert",
+    price: 149,
+    description: "Warm, gooey brownie served with a scoop of vanilla ice cream.",
+    image: "https://images.unsplash.com/photo-1621259182978-40f2e3c4c43e?w=500"
+  }
 ];
+
 
 // Cart management
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -171,35 +312,42 @@ const renderMenu = () => {
   if (!container) return;
 
   // Map data-tab value to category string used in menu_items
-  const dataTab = activeTabContent.dataset.tab; // 'appetizer' or 'main-course'
-  const category = dataTab === 'appetizer' ? 'Appetizer' : 'Main Course';
+  const dataTab = activeTabContent.dataset.tab;
+  const categoryMap = {
+    'soup': 'Soup',
+    'starter': 'Starter',
+    'main-course': 'Main Course',
+    'drink': 'Drink',
+    'dessert': 'Dessert'
+  };
+  const category = categoryMap[dataTab];
+  if (!category) return; // Invalid tab, bail out
 
   const filteredItems = menu_items.filter(item => item.category === category);
   // inside renderMenu() when generating each card
-container.innerHTML = filteredItems.map((item, index) => `
-  <div class="menu-card glass-dark animate-fade-in" style="animation-delay: ${index * 0.1}s">
-    <div class="menu-image-wrapper">
-      <img src="${item.image}" alt="${item.name}" />
-      <div class="overlay"></div>
-    </div>
-
-    <div class="menu-info">
-      <div>
-        <h3 class="menu-title">${item.name}</h3>
-        <p class="menu-desc">${item.description}</p>
+  container.innerHTML = filteredItems.map((item, index) => `
+    <div class="menu-card glass-dark animate-fade-in" style="animation-delay: ${index * 0.1}s">
+      <div class="menu-image-wrapper">
+        <img src="${item.image}" alt="${item.name}" />
+        <div class="overlay"></div>
       </div>
 
-      <!-- Footer pinned to bottom -->
-      <div class="menu-footer">
-        <span class="menu-price">₹${item.price}</span>
-        <button class="add-btn" onclick="openQuantityModal(${JSON.stringify(item).replace(/"/g, '&quot;')})">
-          <span>+</span> Add
-        </button>
+      <div class="menu-info">
+        <div>
+          <h3 class="menu-title">${item.name}</h3>
+          <p class="menu-desc">${item.description}</p>
+        </div>
+
+        <!-- Footer pinned to bottom -->
+        <div class="menu-footer">
+          <span class="menu-price">₹${item.price}</span>
+          <button class="add-btn" onclick="openQuantityModal(${JSON.stringify(item).replace(/"/g, '&quot;')})">
+            <span>+</span> Add
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-`).join('');
-
+  `).join('');
 };
 
 // Switch tab by data-tab (explicit selectors for button and content)

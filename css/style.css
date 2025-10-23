@@ -517,7 +517,7 @@ header {
   border-radius: 0.5rem;
   overflow: hidden;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(5, 1fr);
 }
 
 .tab-btn {

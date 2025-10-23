@@ -13,22 +13,13 @@
         <div class="candle-flame"></div>
         <h1>Sigree</h1>
       </div>
-      <!-- Replace the old cart button with this -->
 <button class="cart-btn" onclick="toggleCart()" aria-label="Open cart" title="Cart">
-  <!-- Clean bag/cart SVG that scales well on dark backgrounds -->
-  <svg class="cart-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
-    <!-- bag body -->
+    <svg class="cart-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
     <rect x="3.5" y="6" width="17" height="12" rx="2" stroke="currentColor" stroke-width="1.4" fill="none"/>
-    <!-- handle -->
     <path d="M8 6V4.2A2.2 2.2 0 0 1 10.2 2h3.6A2.2 2.2 0 0 1 16 4.2V6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <!-- optional small accent lines for depth -->
     <line x1="7" y1="9" x2="17" y2="9" stroke="rgba(255,255,255,0.03)" stroke-width="0.8"/>
   </svg>
-
-  <!-- badge — text inserted/updated by updateCartUI() already present in your JS -->
   <span class="cart-count" aria-hidden="true"></span>
-
-  <!-- accessible label visually hidden for screen readers (optional) -->
   <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;">Open shopping cart</span>
 </button>
 
@@ -44,13 +35,9 @@
       <button class="close-cart" onclick="closeCart()">&times;</button>
     </div>
     <div class="cart-empty" style="display: none;">
-  <!-- Crisp bag/cart SVG using stroke=currentColor -->
   <svg class="cart-empty-icon" viewBox="0 0 24 24" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-    <!-- bag body -->
     <rect x="3.5" y="6" width="17" height="12" rx="2" stroke="currentColor" stroke-width="1.4" fill="none" />
-    <!-- handle -->
     <path d="M8 6V4.2A2.2 2.2 0 0 1 10.2 2h3.6A2.2 2.2 0 0 1 16 4.2V6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <!-- small horizontal accent -->
     <line x1="7" y1="10.5" x2="17" y2="10.5" stroke="rgba(255,255,255,0.03)" stroke-width="0.8" />
   </svg>
 
@@ -85,14 +72,26 @@
     </div>
 
     <div class="tabs">
-      <button class="tab-btn active" data-tab="appetizer">Appetizers</button>
-      <button class="tab-btn" data-tab="main-course">Main Course</button>
+      <button class="tab-btn active" data-tab="soup">Soups</button>
+      <button class="tab-btn" data-tab="starter">Starters</button>
+      <button class="tab-btn" data-tab="main-course">Main Courses</button>
+      <button class="tab-btn" data-tab="drink">Drinks</button>
+      <button class="tab-btn" data-tab="dessert">Desserts</button>
     </div>
 
-    <div data-tab="appetizer" class="tab-content active">
+    <div data-tab="soup" class="tab-content active">
+      <div class="menu-grid"></div>
+    </div>
+    <div data-tab="starter" class="tab-content">
       <div class="menu-grid"></div>
     </div>
     <div data-tab="main-course" class="tab-content">
+      <div class="menu-grid"></div>
+    </div>
+    <div data-tab="drink" class="tab-content">
+      <div class="menu-grid"></div>
+    </div>
+    <div data-tab="dessert" class="tab-content">
       <div class="menu-grid"></div>
     </div>
   </main>
