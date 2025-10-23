@@ -687,6 +687,7 @@ header {
 }
 
 .hero-subtitle {
+  margin:auto;
   font-size: 1.25rem;
   color: rgba(245, 245, 220, 0.9);
   max-width: 32rem;
