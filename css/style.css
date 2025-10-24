@@ -57,6 +57,8 @@ header {
   background-clip: text;
 }
 
+@media (min-width: 768px) {
+
 /* Prevent scrollbar on landing page */
 .landing-body {
   overflow: hidden;
@@ -76,6 +78,7 @@ header {
 
 .landing-body .hero > div.absolute {
   z-index: 1;
+}
 }
 
 /* --- Cart button (improved) --- */
