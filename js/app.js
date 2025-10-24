@@ -24,7 +24,7 @@ const menu_items = [
     name: "Vietnamese Spring Roll",
     category: "Starter",
     price: 129,
-    description: "Crunchy rolls packed with vegetables and authentic Vietnamese flavors.",
+    description: "5 pieces of Crunchy rolls packed with vegetables and authentic Vietnamese flavors.",
     image: "https://images.unsplash.com/photo-1693494869603-09f1981f28e0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
   {
@@ -32,7 +32,7 @@ const menu_items = [
     name: "Tandoori Paneer Momos",
     category: "Starter",
     price: 129,
-    description: "Smoky tandoori momos stuffed with soft paneer and aromatic Indian spices.",
+    description: "Smoky tandoori momos stuffed with soft paneer and aromatic Indian spices. 5 pieces a plate.",
     image: "https://images.unsplash.com/photo-1694923450868-b432a8ee52aa?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
   {
@@ -48,7 +48,7 @@ const menu_items = [
     name: "Chicken Kurkure",
     category: "Starter",
     price: 149,
-    description: "Crunchy on the outside, tender inside — perfect for spicy snack lovers.",
+    description: "Crunchy on the outside, tender inside — perfect for spicy snack lovers. 8 pieces a plate.",
     image: "https://images.unsplash.com/photo-1690519315565-c31ce99f8d58?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
 
