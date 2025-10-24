@@ -82,12 +82,14 @@ header {
 }
 @media (max-width: 767px) {
   .header-logo {
-    margin-top: 3vh;
     width: 48px;   /* smaller logo on mobile */
   }
 
   .logo h1 {
     font-size: 1.5rem;
+  }
+  .hero-title{
+    margin-top: 3vh;
   }
 }
 
