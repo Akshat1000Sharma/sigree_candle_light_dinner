@@ -79,6 +79,9 @@ header {
 .landing-body .hero > div.absolute {
   z-index: 1;
 }
+.hero-title{
+  margin-top:3vh;
+}
 }
 
 /* --- Cart button (improved) --- */
