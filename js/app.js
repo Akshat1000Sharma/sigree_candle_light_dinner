@@ -5,7 +5,7 @@ const menu_items = [
     id: "1",
     name: "Cream of Mushroom Soup",
     category: "Soup",
-    price: 129,
+    price: 119,
     description: "A creamy, velvety soup made with fresh mushrooms and herbs — comforting and delicious.",
     image: "https://plus.unsplash.com/premium_photo-1671377665515-38e39a4de0b7?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
@@ -107,7 +107,7 @@ const menu_items = [
     id: "14",
     name: "Choco Brownie Shake",
     category: "Drink",
-    price: 129,
+    price: 109,
     description: "Thick, indulgent chocolate shake topped with brownie bits.",
     image: "https://plus.unsplash.com/premium_photo-1695750678153-e7148811673e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   },
@@ -133,7 +133,7 @@ const menu_items = [
     id: "18",
     name: "Brownie with Ice Cream",
     category: "Dessert",
-    price: 149,
+    price: 119,
     description: "Warm, gooey brownie served with a scoop of vanilla ice cream.",
     image: "https://images.unsplash.com/photo-1624353365286-3f8d62daad51?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&fm=jpg&q=60&w=3000"
   }
