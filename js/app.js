@@ -486,7 +486,7 @@ const handleCheckoutForm = () => {
       const leftoverForm = document.getElementById('apps-script-temp-form');
       if (leftoverForm) leftoverForm.remove();
       reenableButtonUI();
-      alert('Submission is taking longer than expected. Please try again. If the problem persists, contact support.');
+      alert('Submission is taking longer than expected. Please try again. If the problem persists, contact support at 7067466990.');
     }
   }, 20000);
 
