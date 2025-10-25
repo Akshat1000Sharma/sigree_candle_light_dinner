@@ -414,7 +414,7 @@ const resetUpload = () => {
 };
 
 // Checkout form handling
-const APPS_SCRIPT_WEBAPP_URL = 'https://script.google.com/a/macros/snu.edu.in/s/AKfycbxIPBYTuGu37V3HTHft3_WFJpmKM9M1izEh1-czJCZUUKMdxziR_PmsG0ykk-LzmmWc/exec';
+const APPS_SCRIPT_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbyB8eH8YFAfGDAu1g_DNcjOOoXADuo3iwJTUzlaaOjMbCPt_f-P_bxwtLkQHR4Td_1Z/exec';
 
 let isSubmitting = false;
 
