@@ -425,7 +425,7 @@ const handleCheckoutForm = () => {
   const btn = document.querySelector('.confirm-btn');
   const originalBtnHtml = btn ? btn.innerHTML : null;
 
-  const disableButtonUI = (text = 'Processing…') => {
+  const disableButtonUI = () => {
     if (!btn) return;
     btn.disabled = true;
     btn.setAttribute('aria-disabled', 'true');
@@ -434,25 +434,30 @@ const handleCheckoutForm = () => {
       <svg class="btn-spinner" width="18" height="18" viewBox="0 0 50 50" aria-hidden="true">
         <circle cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
       </svg>
-      <span style="margin-left:8px;">${text}</span>
+      <span style="margin-left:8px;">Processing…</span>
     `;
   };
 
-  const reenableButtonUI = (text = 'Confirm Order') => {
+  const reenableButtonUI = () => {
     if (!btn) return;
     btn.disabled = false;
     btn.removeAttribute('aria-disabled');
     btn.classList.remove('loading');
-    btn.innerHTML = originalBtnHtml || text;
+    btn.innerHTML = originalBtnHtml || 'Confirm Order';
   };
 
   disableButtonUI();
 
-  const name = document.getElementById('customer_name')?.value.trim() || '';
-  const email = document.getElementById('customer_email')?.value.trim() || '';
-  const phone = document.getElementById('customer_phone')?.value.trim() || '';
-  const slot = document.getElementById('slot_select')?.value || '';
+  const nameEl = document.getElementById('customer_name');
+  const emailEl = document.getElementById('customer_email');
+  const phoneEl = document.getElementById('customer_phone');
+  const slotSelect = document.getElementById('slot_select');
   const screenshotInput = document.getElementById('payment_screenshot');
+
+  const name = nameEl ? nameEl.value.trim() : '';
+  const email = emailEl ? emailEl.value.trim() : '';
+  const phone = phoneEl ? phoneEl.value.trim() : '';
+  const slot = slotSelect ? slotSelect.value : '';
 
   if (!name || !email || !phone) {
     alert('Please fill all details');
@@ -460,7 +465,7 @@ const handleCheckoutForm = () => {
     reenableButtonUI();
     return;
   }
-  if (!screenshotInput?.files?.length) {
+  if (!screenshotInput || !screenshotInput.files || screenshotInput.files.length === 0) {
     alert('Please upload payment screenshot');
     isSubmitting = false;
     reenableButtonUI();
@@ -475,11 +480,13 @@ const handleCheckoutForm = () => {
   const file = screenshotInput.files[0];
   const reader = new FileReader();
 
-  // If submission takes > 20 sec, show a message but DO NOT redirect
-  const submitTimeout = setTimeout(() => {
+  let submitTimeout = setTimeout(() => {
     if (isSubmitting) {
-      disableButtonUI('Taking longer than expected...');
-      alert('The submission is taking longer than expected. Please wait or contact support at 7067466990 if it doesn’t complete soon.');
+      isSubmitting = false;
+      const leftoverForm = document.getElementById('apps-script-temp-form');
+      if (leftoverForm) leftoverForm.remove();
+      reenableButtonUI();
+      alert('Submission is taking longer than expected. Please try again. If the problem persists, contact support.');
     }
   }, 20000);
 
@@ -490,37 +497,58 @@ const handleCheckoutForm = () => {
       const base64 = parts[1] || '';
       const mime = (parts[0].match(/data:(.*);base64/) || [])[1] || 'image/png';
 
-      const payload = {
-        name,
-        email,
-        phone,
-        slot,
-        order: orderSummary,
-        base64_image: base64,
-        filename: file.name,
-        mimetype: mime,
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.enctype = 'multipart/form-data';
+      form.action = APPS_SCRIPT_WEBAPP_URL;
+      form.style.display = 'none';
+      form.id = 'apps-script-temp-form';
+
+      const addInput = (k, v) => {
+        const i = document.createElement('input');
+        i.type = 'hidden';
+        i.name = k;
+        i.value = v || '';
+        form.appendChild(i);
+      };
+      addInput('name', name);
+      addInput('email', email);
+      addInput('phone', phone);
+      addInput('slot', slot);
+      addInput('order', orderSummary);
+      addInput('base64_image', base64);
+      addInput('filename', file.name);
+      addInput('mimetype', mime);
+
+      let iframe = document.getElementById('apps-script-iframe');
+      if (!iframe) {
+        iframe = document.createElement('iframe');
+        iframe.id = 'apps-script-iframe';
+        iframe.name = 'apps-script-iframe';
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+      }
+
+      form.target = iframe.name;
+      document.body.appendChild(form);
+
+      const onIFrameLoad = () => {
+        try {
+          clearTimeout(submitTimeout);
+          iframe.removeEventListener('load', onIFrameLoad);
+          const temp = document.getElementById('apps-script-temp-form');
+          if (temp) temp.remove();
+          clearCart();
+          window.location.href = 'success.html';
+        } catch (err) {
+          isSubmitting = false;
+          reenableButtonUI();
+          alert('An unexpected error occurred. Please try again.');
+        }
       };
 
-      // Use fetch() instead of form+iframe for better error handling
-      fetch(APPS_SCRIPT_WEBAPP_URL, {
-        method: 'POST',
-        mode: 'no-cors', // Apps Script usually requires this
-        body: JSON.stringify(payload),
-        headers: { 'Content-Type': 'application/json' }
-      })
-      .then(() => {
-        clearTimeout(submitTimeout);
-        isSubmitting = false;
-        clearCart();
-        window.location.href = 'success.html'; // only redirect on success
-      })
-      .catch(err => {
-        clearTimeout(submitTimeout);
-        isSubmitting = false;
-        console.error('API error:', err);
-        reenableButtonUI();
-        alert('There was a network or server issue. Please try again or contact support at 7067466990.');
-      });
+      iframe.addEventListener('load', onIFrameLoad);
+      form.submit();
     } catch (err) {
       clearTimeout(submitTimeout);
       isSubmitting = false;
@@ -531,7 +559,6 @@ const handleCheckoutForm = () => {
 
   reader.readAsDataURL(file);
 };
-
 
 // DOMContentLoaded initialization
 document.addEventListener('DOMContentLoaded', () => {
