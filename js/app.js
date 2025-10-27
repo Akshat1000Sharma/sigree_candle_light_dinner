@@ -589,4 +589,32 @@ document.addEventListener('DOMContentLoaded', () => {
       closeQuantityModal();
     });
   });
+
+  // Countdown Timer (only on menu.html)
+  if (document.querySelector('.menu-container')) {
+    const endTime = new Date('2025-10-28T11:59:00').getTime(); // End: 11:59 AM, Oct 28, 2025
+    const startTime = new Date('2025-10-27T12:01:00').getTime(); // Start: 12:01 PM, Oct 27, 2025 (for reference, but timer starts from now)
+    const now = new Date().getTime();
+    if (now < startTime) {
+      // If before start, show "Opens Soon" or similar
+      document.getElementById('countdown').innerHTML = 'Opens Soon';
+      return;
+    }
+    const updateCountdown = () => {
+      const currentTime = new Date().getTime();
+      const distance = endTime - currentTime;
+      const countdownEl = document.getElementById('countdown');
+      if (!countdownEl) return;
+      if (distance < 0) {
+        countdownEl.innerHTML = 'EXPIRED';
+        return;
+      }
+      const hours = Math.floor(distance / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      countdownEl.innerHTML = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    };
+    updateCountdown(); // Initial update
+    setInterval(updateCountdown, 1000); // Update every second
+  }
 });
