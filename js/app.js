@@ -144,10 +144,10 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // --------- Slot management ----------
 const SLOTS = [
-  { id: 'slot1', label: '8:00 PM - 8:45 PM', number: 9 },
-  { id: 'slot2', label: '8:45 PM - 9:30 PM', number: 12 },
-  { id: 'slot3', label: '9:30 PM - 10:15 PM', number: 7 },
-  { id: 'slot4', label: '10:15 PM - 11:00 PM', number: 4 }
+  { id: 'slot1', label: '8:00 PM - 8:45 PM', number: 7 },
+  { id: 'slot2', label: '8:45 PM - 9:30 PM', number: 9 },
+  { id: 'slot3', label: '9:30 PM - 10:15 PM', number: 5 },
+  { id: 'slot4', label: '10:15 PM - 11:00 PM', number: 2 }
 ];
 
 // Render slot options with available counts
