@@ -1358,6 +1358,7 @@ header {
   opacity: 0.9;
   pointer-events: none;
 }
+
 /* Sponsors Section */
 .sponsors-section {
   padding: 4rem 1rem; /* Increased from 2rem for taller section */
@@ -1371,14 +1372,14 @@ header {
   color: #D4AF37;
   margin-bottom: 1.5rem; /* Slight increase for better spacing */
   font-family: 'Playfair Display', serif;
-  font-size: 1.25rem;
-  font-weight: 500;
+  font-size: 2.5rem;
+  font-weight: 900;
 }
 
 .sponsors-grid {
   display: flex;
   justify-content: center;
-  gap: 3rem; /* Increased gap for larger logos */
+  gap: 4rem; /* Increased gap to accommodate larger 300px logos */
   flex-wrap: wrap;
 }
 
@@ -1396,9 +1397,9 @@ header {
 }
 
 .sponsor img {
-  width: 120px; /* Fixed width */
-  height: 120px; /* Fixed height to match, creating a uniform square container */
-  object-fit: fill; /* Stretches the logo to fill the exact 120x120 dimensions completely, allowing vertical/horizontal stretch as needed */
+  width: 300px; /* Increased to 300px as requested */
+  height: 300px; /* Increased to 300px as requested, maintaining square container */
+  object-fit: fill; /* Stretches the logo to fill the exact 300x300 dimensions completely, allowing vertical/horizontal stretch as needed */
   filter: brightness(1.1) saturate(1.1); /* Subtle enhancement to fit gold/dark theme */
   border-radius: 0.25rem;
   transition: transform 0.3s ease;
@@ -1410,8 +1411,8 @@ header {
 
 .sponsor span {
   color: rgba(245, 245, 220, 0.8);
-  font-size: 0.9rem;
-  font-weight: 400;
+  font-size: 1.5 rem;
+  font-weight: 700;
   letter-spacing: 0.5px;
 }
 
@@ -1424,13 +1425,13 @@ header {
   }
 
   .sponsor img {
-    width: 90px; /* Fixed width */
-    height: 90px; /* Fixed height to match */
+    width: 250px; /* Scaled down proportionally for mobile (from 300px to ~83% for better fit on smaller screens) */
+    height: 250px; /* Scaled down proportionally for mobile */
     object-fit: fill; /* Same stretch behavior on mobile */
   }
 
   .sponsors-section h3 {
-    font-size: 1.1rem;
+    font-size: 2rem;
   }
 
   .sponsors-section {
