@@ -1358,9 +1358,10 @@ header {
   opacity: 0.9;
   pointer-events: none;
 }
+
 /* Sponsors Section */
 .sponsors-section {
-  padding: 4rem 1rem; /* Increased from 2rem for taller section */
+  padding: 4rem 1rem;
   text-align: center;
   background: rgba(0, 0, 0, 0.2);
   border-top: 1px solid rgba(212, 175, 55, 0.1);
@@ -1369,24 +1370,39 @@ header {
 
 .sponsors-section h3 {
   color: #D4AF37;
-  margin-bottom: 1.5rem; /* Slight increase for better spacing */
+  margin-bottom: 1.5rem;
   font-family: 'Playfair Display', serif;
   font-size: 2.5rem;
   font-weight: 900;
 }
 
+.main-sponsor-section,
+.co-sponsors-section,
+.candle-sponsor-section {
+  margin-bottom: 3rem;
+}
+
+.main-sponsor-section .sponsor.big img {
+  width: 300px;
+  height: 300px;
+}
+
 .sponsors-grid {
   display: flex;
   justify-content: center;
-  gap: 4rem; /* Increased gap to accommodate larger 300px logos */
+  gap: 4rem;
   flex-wrap: wrap;
+}
+
+.sponsors-grid.small {
+  gap: 2rem;
 }
 
 .sponsor {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem; /* Slightly more space between logo and text */
+  gap: 0.75rem;
   opacity: 0.9;
   transition: opacity 0.3s ease;
 }
@@ -1396,12 +1412,17 @@ header {
 }
 
 .sponsor img {
-  width: 300px; /* Increased to 300px as requested */
-  height: 300px; /* Increased to 300px as requested, maintaining square container */
-  object-fit: fill; /* Stretches the logo to fill the exact 300x300 dimensions completely, allowing vertical/horizontal stretch as needed */
-  filter: brightness(1.1) saturate(1.1); /* Subtle enhancement to fit gold/dark theme */
-  border-radius: 50%; /* Fully curved edges, creating a circular shape for both logos */
+  width: 200px;
+  height: 200px;
+  object-fit: fill;
+  filter: brightness(1.1) saturate(1.1);
+  border-radius: 50%;
   transition: transform 0.3s ease;
+}
+
+.sponsor.big img {
+  width: 300px;
+  height: 300px;
 }
 
 .sponsor:hover img {
@@ -1410,24 +1431,28 @@ header {
 
 .sponsor span {
   color: rgba(245, 245, 220, 0.8);
-  font-size: 1.5rem; /* Fixed typo from '1.5 rem' */
+  font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: 0.5px;
 }
 
 /* Responsive: Stack vertically on mobile */
 @media (max-width: 768px) {
-  .sponsors-grid {
+  .sponsors-grid,
+  .sponsors-grid.small {
     flex-direction: column;
     align-items: center;
-    gap: 2rem; /* Adjusted for mobile */
+    gap: 2rem;
   }
 
   .sponsor img {
-    width: 250px; /* Scaled down proportionally for mobile (from 300px to ~83% for better fit on smaller screens) */
-    height: 250px; /* Scaled down proportionally for mobile */
-    object-fit: fill; /* Same stretch behavior on mobile */
-    border-radius: 50%; /* Maintain curved edges on mobile */
+    width: 180px;
+    height: 180px;
+  }
+
+  .sponsor.big img {
+    width: 250px;
+    height: 250px;
   }
 
   .sponsors-section h3 {
@@ -1435,7 +1460,13 @@ header {
   }
 
   .sponsors-section {
-    padding: 3rem 1rem; /* Slightly less padding on mobile to avoid overwhelming small screens */
+    padding: 3rem 1rem;
+  }
+
+  .main-sponsor-section,
+  .co-sponsors-section,
+  .candle-sponsor-section {
+    margin-bottom: 2rem;
   }
 }
 
