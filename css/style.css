@@ -1358,7 +1358,6 @@ header {
   opacity: 0.9;
   pointer-events: none;
 }
-
 /* Sponsors Section */
 .sponsors-section {
   padding: 4rem 1rem; /* Increased from 2rem for taller section */
@@ -1401,7 +1400,7 @@ header {
   height: 300px; /* Increased to 300px as requested, maintaining square container */
   object-fit: fill; /* Stretches the logo to fill the exact 300x300 dimensions completely, allowing vertical/horizontal stretch as needed */
   filter: brightness(1.1) saturate(1.1); /* Subtle enhancement to fit gold/dark theme */
-  border-radius: 0.25rem;
+  border-radius: 50%; /* Fully curved edges, creating a circular shape for both logos */
   transition: transform 0.3s ease;
 }
 
@@ -1411,7 +1410,7 @@ header {
 
 .sponsor span {
   color: rgba(245, 245, 220, 0.8);
-  font-size: 1.5 rem;
+  font-size: 1.5rem; /* Fixed typo from '1.5 rem' */
   font-weight: 700;
   letter-spacing: 0.5px;
 }
@@ -1428,6 +1427,7 @@ header {
     width: 250px; /* Scaled down proportionally for mobile (from 300px to ~83% for better fit on smaller screens) */
     height: 250px; /* Scaled down proportionally for mobile */
     object-fit: fill; /* Same stretch behavior on mobile */
+    border-radius: 50%; /* Maintain curved edges on mobile */
   }
 
   .sponsors-section h3 {
