@@ -144,9 +144,9 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // --------- Slot management ----------
 const SLOTS = [
-  { id: 'slot1', label: '8:00 PM - 8:45 PM', number: 7 },
-  { id: 'slot2', label: '8:45 PM - 9:30 PM', number: 9 },
-  { id: 'slot3', label: '9:30 PM - 10:15 PM', number: 5 },
+  { id: 'slot1', label: '8:00 PM - 8:45 PM', number: 4 },
+  { id: 'slot2', label: '8:45 PM - 9:30 PM', number: 5 },
+  { id: 'slot3', label: '9:30 PM - 10:15 PM', number: 8 },
   { id: 'slot4', label: '10:15 PM - 11:00 PM', number: 3 }
 ];
 
@@ -592,7 +592,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Countdown Timer (only on menu.html)
   if (document.querySelector('.menu-container')) {
-    const endTime = new Date('2025-10-28T03:59:00').getTime(); // End: 11:59 AM, Oct 28, 2025
+    const endTime = new Date('2025-10-28T23:59:00').getTime(); // End: 11:59 AM, Oct 28, 2025
     const startTime = new Date('2025-10-27T12:01:00').getTime(); // Start: 12:01 PM, Oct 27, 2025 (for reference, but timer starts from now)
     const now = new Date().getTime();
     if (now < startTime) {
