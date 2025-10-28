@@ -3,8 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menu - Sigree</title>
+  <title>Checkout - Sigree</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Closed Booking Message Styles */
+    .closed-container {
+      max-width: 64rem;
+      margin: 0 auto;
+      padding: 3rem 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 60vh;
+    }
+
+    .closed-box {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      border-radius: 0.5rem;
+      padding: 2rem;
+      text-align: center;
+      max-width: 40rem;
+      width: 100%;
+    }
+
+    .closed-message {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.25rem, 4vw, 1.5rem);
+      color: #D4AF37;
+      margin: 0;
+      line-height: 1.4;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -13,113 +44,14 @@
         <img src="https://sigree-candle-light-dinner.vercel.app/static/logo.png" alt="Logo" class="header-logo">
         <h1>Sigree</h1>
       </div>
-<button class="cart-btn" onclick="toggleCart()" aria-label="Open cart" title="Cart">
-    <svg class="cart-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
-    <rect x="3.5" y="6" width="17" height="12" rx="2" stroke="currentColor" stroke-width="1.4" fill="none"/>
-    <path d="M8 6V4.2A2.2 2.2 0 0 1 10.2 2h3.6A2.2 2.2 0 0 1 16 4.2V6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <line x1="7" y1="9" x2="17" y2="9" stroke="rgba(255,255,255,0.03)" stroke-width="0.8"/>
-  </svg>
-  <span class="cart-count" aria-hidden="true"></span>
-  <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;">Open shopping cart</span>
-</button>
-
     </div>
   </header>
 
-  <div class="overlay" onclick="closeCart()"></div>
-
-  <!-- Cart Sidebar -->
-  <aside class="cart-sidebar">
-    <div class="cart-header">
-      <h2 class="cart-title">Your Cart</h2>
-      <button class="close-cart" onclick="closeCart()">&times;</button>
-    </div>
-    <div class="cart-empty" style="display: none;">
-  <svg class="cart-empty-icon" viewBox="0 0 24 24" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-    <rect x="3.5" y="6" width="17" height="12" rx="2" stroke="currentColor" stroke-width="1.4" fill="none" />
-    <path d="M8 6V4.2A2.2 2.2 0 0 1 10.2 2h3.6A2.2 2.2 0 0 1 16 4.2V6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <line x1="7" y1="10.5" x2="17" y2="10.5" stroke="rgba(255,255,255,0.03)" stroke-width="0.8" />
-  </svg>
-
-  <p>Your cart is empty</p>
-</div>
-
-    <div class="cart-items"></div>
-    <div class="cart-total-section">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-        <span class="cart-total-label">Total:</span>
-        <span class="cart-total-amount">₹0</span>
-      </div>
-      <button class="proceed-btn" style="display: none;" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
-    </div>
-  </aside>
-
-  <main class="menu-container">
-    <div class="event-desc">
-      <div class="glass-dark animate-fade-in-up">
-        <p>Experience an unforgettable evening filled with warmth, laughter, and elegance at our exclusive Candlelight Dinner. Designed especially for college students, this event blends a cozy ambience with delicious food, soft music, and beautiful décor — perfect for creating lasting memories with that special someone. Dress up, unwind, and let the soft glow of candles and good company make your night truly magical.</p>
-      </div>
-    </div>
-
-    <!-- Countdown Timer Section -->
-    <div class="countdown-section glass-dark animate-fade-in-up">
-      <p class="countdown-label">Booking Open Until</p>
-      <div id="countdown" class="countdown-display">23:58:00</div>
-      <small class="countdown-note">(Ends 11:59 PM, Oct 28, 2025)</small>
-    </div>
-
-    <div class="menu-title-section animate-fade-in-up">
-      <h2 class="menu-title">Our Menu</h2>
-      <p class="menu-subtitle">Indulge in our carefully curated selection of delicacies</p>
-      <div class="decor-line">
-        <div class="h-px w-16 bg-gradient-to-r from-transparent to-[#D4AF37]"></div>
-        <div class="candle-flame"></div>
-        <div class="h-px w-16 bg-gradient-to-l from-transparent to-[#D4AF37]"></div>
-      </div>
-    </div>
-
-    <div class="tabs">
-      <button class="tab-btn active" data-tab="soup">Soups</button>
-      <button class="tab-btn" data-tab="starter">Starters</button>
-      <button class="tab-btn" data-tab="main-course">Main Courses</button>
-      <button class="tab-btn" data-tab="drink">Drinks</button>
-      <button class="tab-btn" data-tab="dessert">Desserts</button>
-    </div>
-
-    <div data-tab="soup" class="tab-content active">
-      <div class="menu-grid"></div>
-    </div>
-    <div data-tab="starter" class="tab-content">
-      <div class="menu-grid"></div>
-    </div>
-    <div data-tab="main-course" class="tab-content">
-      <div class="menu-grid"></div>
-    </div>
-    <div data-tab="drink" class="tab-content">
-      <div class="menu-grid"></div>
-    </div>
-    <div data-tab="dessert" class="tab-content">
-      <div class="menu-grid"></div>
+  <main class="closed-container">
+    <div class="closed-box">
+      <p class="closed-message">The booking for this event has been closed. If you have already placed an order and want to make changes in that, please contact support at 7067466990</p>
     </div>
   </main>
-
-  <!-- Quantity Modal -->
-  <div class="quantity-modal">
-    <div class="overlay"></div>
-    <div class="modal-content glass-dark">
-      <button class="close-modal" onclick="closeQuantityModal()">&times;</button>
-      <h2 class="modal-title">Select Quantity</h2>
-      <div class="modal-item-name"></div>
-      <div class="modal-price"></div>
-      <div class="qty-section">
-        <button class="qty-btn qty-decrease" onclick="updateModalQuantity(-1)">-</button>
-        <input type="number" class="qty-input" min="1" value="1" onchange="updateModalQuantity(0)">
-        <button class="qty-btn qty-increase" onclick="updateModalQuantity(1)">+</button>
-      </div>
-      <div class="modal-total">Total: ₹0</div>
-      <button class="add-to-cart-modal" onclick="confirmAddToCart()">Add to Cart</button>
-    </div>
-  </div>
 
   <!-- Sponsors Section -->
   <footer class="sponsors-section">
@@ -156,7 +88,5 @@
       </div>
     </div>
   </footer>
-
-  <script src="js/app.js"></script>
 </body>
 </html>
