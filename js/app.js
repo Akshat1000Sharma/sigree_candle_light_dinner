@@ -592,7 +592,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Countdown Timer (only on menu.html)
   if (document.querySelector('.menu-container')) {
-    const endTime = new Date('2025-10-29T00:09:00').getTime(); // End: 11:59 AM, Oct 28, 2025
+    const endTime = new Date('2026-03-15T00:09:00').getTime(); // End: 11:59 AM, Oct 28, 2025
     const startTime = new Date('2025-10-27T12:01:00').getTime(); // Start: 12:01 PM, Oct 27, 2025 (for reference, but timer starts from now)
     const now = new Date().getTime();
     if (now < startTime) {
