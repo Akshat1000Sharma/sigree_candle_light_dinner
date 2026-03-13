@@ -5,37 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout - Sigree</title>
   <link rel="stylesheet" href="css/style.css">
-  <style>
-    /* Closed Booking Message Styles */
-    .closed-container {
-      max-width: 64rem;
-      margin: 0 auto;
-      padding: 3rem 1rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 60vh;
-    }
-
-    .closed-box {
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(212, 175, 55, 0.1);
-      border-radius: 0.5rem;
-      padding: 2rem;
-      text-align: center;
-      max-width: 40rem;
-      width: 100%;
-    }
-
-    .closed-message {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.25rem, 4vw, 1.5rem);
-      color: #D4AF37;
-      margin: 0;
-      line-height: 1.4;
-    }
-  </style>
 </head>
 <body>
   <header>
@@ -47,13 +16,89 @@
     </div>
   </header>
 
-  <main class="closed-container">
-    <div class="closed-box">
-      <p class="closed-message">The booking for this event has been closed. If you have already placed an order and want to make changes in that, please contact support at 7067466990</p>
+  <main class="checkout-container">
+    <a href="menu.html" class="back-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M15 18l-6-6 6-6"/></svg>
+      Back to Menu
+    </a>
+
+    <h1 class="checkout-title">Checkout</h1>
+
+    <div class="checkout-grid">
+      <div class="order-summary glass-dark">
+        <h2 class="card-title">Order Summary</h2>
+        <div id="summary-items"></div>
+        <div class="summary-total">
+          <span>Total:</span>
+          <span id="checkout-total">₹0</span>
+        </div>
+        <p class="disclaimer">
+          Note: A single order books a table of 2 individual for a 45 min slot. Kindly arrive during the start time of the slot to avoid unnecessary crowding later. All orders will be prebooked and no order will be accepted after 28th October 2025.
+        </p>
+      </div>
+
+      <div>
+        <div class="details-card glass-dark">
+          <h2 class="card-title">Your Details</h2>
+          <div class="form-group">
+            <label class="form-label" for="customer_name">Name *</label>
+            <input type="text" id="customer_name" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="customer_email">Email *</label>
+            <input type="email" id="customer_email" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="customer_phone">Phone Number *</label>
+            <input type="tel" id="customer_phone" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="slot_select">Choose a slot *</label>
+            <select id="slot_select" class="form-input slot-select" required>
+              <!-- options populated by JS -->
+            </select>
+            <small class="slot-note">Event: 8:00 PM — 11:00 PM. Each slot = 45 mins. Max 20 tables per slot.</small>
+          </div>
+        </div>
+
+        <div class="payment-card glass-dark" style="margin-top: 1.5rem;">
+          <h2 class="card-title">Payment</h2>
+          <div class="qr-section">
+            <p class="form-label">Scan the QR code below to complete payment</p>
+            <div class="qr-placeholder">
+              <!-- Actual QR image from static/qr.jpg -->
+              <img src="static/qr.jpg" alt="Payment QR" class="qr-img" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Upload Payment Screenshot</label>
+
+            <label for="payment_screenshot" id="upload-area" class="upload-area">
+              <svg class="upload-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <p class="upload-text" id="upload-text">Click to upload payment screenshot</p>
+              <p class="upload-hint">PNG, JPG up to 5MB</p>
+            </label>
+            <input type="file" id="payment_screenshot" accept="image/*" style="display: none;" onchange="handleFileUpload(event)">
+
+            <div id="upload-preview" style="display: none;">
+              <img id="screenshot-preview" class="screenshot-preview" alt="Preview" />
+              <p id="uploaded-filename" class="uploaded-filename"></p>
+              <div class="upload-preview-actions">
+                <button type="button" class="change-btn" id="change-upload-btn">Change Screenshot</button>
+                <button type="button" class="change-btn secondary" id="remove-upload-btn">Remove</button>
+              </div>
+            </div>
+          </div>
+
+          <button class="confirm-btn" onclick="handleCheckoutForm()">Confirm Order</button>
+        </div>
+      </div>
     </div>
   </main>
 
-  <!-- Sponsors Section -->
+    <!-- Sponsors Section -->
   <footer class="sponsors-section">
     <div class="main-sponsor-section">
       <h3>Sponsored By</h3>
@@ -88,5 +133,41 @@
       </div>
     </div>
   </footer>
+
+  <script src="js/app.js"></script>
+  <script>
+    // Render summary (runs after app.js defines cart and getCartTotal)
+    document.addEventListener('DOMContentLoaded', () => {
+      const summaryEl = document.getElementById('summary-items');
+      const totalEl = document.getElementById('checkout-total');
+      if (summaryEl && typeof cart !== 'undefined') {
+        summaryEl.innerHTML = cart.map(item => `
+          <div class="summary-item">
+            <div>
+              <div class="summary-item-name">${item.name}</div>
+              <p class="summary-item-qty">Quantity: ${item.quantity}</p>
+            </div>
+            <span>₹${item.price * item.quantity}</span>
+          </div>
+        `).join('');
+      }
+      if (totalEl && typeof getCartTotal === 'function') {
+        totalEl.textContent = `₹${getCartTotal()}`;
+      }
+    });
+
+    // Connect preview remove/change buttons (they use functions in app.js)
+    document.addEventListener('DOMContentLoaded', () => {
+      const changeBtn = document.getElementById('change-upload-btn');
+      const removeBtn = document.getElementById('remove-upload-btn');
+      if (changeBtn) changeBtn.addEventListener('click', () => {
+        // open file selector again
+        document.getElementById('payment_screenshot').click();
+      });
+      if (removeBtn) removeBtn.addEventListener('click', () => {
+        resetUpload();
+      });
+    });
+  </script>
 </body>
 </html>
