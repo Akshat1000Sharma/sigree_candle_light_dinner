@@ -9,7 +9,7 @@ The system uses a **Google Apps Script web endpoint as a serverless backend** to
 # Architecture Diagram
 
 ```
-                         ┌────────────-─────────────┐
+                         ┌──────────────────────────┐
                          │        User Browser      │
                          │  (Chrome / Mobile etc.)  │
                          └────────────┬─────────────┘
@@ -17,7 +17,7 @@ The system uses a **Google Apps Script web endpoint as a serverless backend** to
                                       │ HTTP Requests
                                       ▼
                          ┌─────────────────────────┐
-                         │   Frontend Application   │
+                         │   Frontend Application  │
                          │                         │
                          │  Static Website         │
                          │                         │
@@ -36,7 +36,7 @@ The system uses a **Google Apps Script web endpoint as a serverless backend** to
                          │                         │
                          │  CSS Styling            │
                          │  - style.css            │
-                         └────────────┬─────────────┘
+                         └────────────┬────────────┘
                                       │
                                       │ POST request
                                       │ (Order Data + Screenshot)
@@ -58,14 +58,14 @@ The system uses a **Google Apps Script web endpoint as a serverless backend** to
               │                                            │
               ▼                                            ▼
      ┌──────────────────────┐                   ┌──────────────────────┐
-     │    Google Sheets      │                   │    Google Drive      │
+     │    Google Sheets     │                   │    Google Drive      │
      │                      │                   │                      │
-     │ Stores Order Data   │                   │ Stores Screenshot    │
-     │                      │                   │ Images              │
-     │ - Customer Info     │                   │                      │
-     │ - Slot              │                   │ Linked to Sheet Row  │
-     │ - Order Summary     │                   │                      │
-     │ - Timestamp         │                   │                      │
+     │ Stores Order Data    │                   │ Stores Screenshot    │
+     │                      │                   │ Images               │
+     │ - Customer Info      │                   │                      │
+     │ - Slot               │                   │ Linked to Sheet Row  │
+     │ - Order Summary      │                   │                      │
+     │ - Timestamp          │                   │                      │
      └──────────────────────┘                   └──────────────────────┘
 
 ```
@@ -167,7 +167,7 @@ The system uses a **Google Apps Script web endpoint as a serverless backend** to
 ```
 Page Load
    │
-   ▼
+   V
 DOMContentLoaded
    │
    ├── updateCartUI()
